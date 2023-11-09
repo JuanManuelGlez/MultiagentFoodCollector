@@ -8,6 +8,9 @@ import pandas as pd
 
 import time as tm
 
+from API.Agents.RecolectorAgent import RecolectorAgent
+from API.Agents.ExplorerAgent import ExplorerAgent
+
 
 class foodColectionModel(Model):
     def __init__(self,width,height,numRecolectors,numExplorers,totalFood):
@@ -36,14 +39,18 @@ class foodColectionModel(Model):
             model_reporters = {"Total Food": self.getGrid},
         )
 
-        # Time management
-        self.startTime = tm.time()
-
         # Create Agents
         for i in range(self.numRecolectors):
             x = np.random.randint(0,self.width)
             y = np.random.randint(0,self.height)
             a = RecolectorAgent(i,self)
+            self.schedule.add(a)
+            self.grid.place_agent(a,(x,y))
+
+        for i in range(self.numExplorers):
+            x = np.random.randint(0,self.width)
+            y = np.random.randint(0,self.height)
+            a = ExplorerAgent(i,self)
             self.schedule.add(a)
             self.grid.place_agent(a,(x,y))
 
@@ -55,12 +62,7 @@ class foodColectionModel(Model):
             self.floor[x][y] += 1
 
     def checkToPutFood(self):
-        # get the difference in seconds between current time and start time
-        time_difference = tm.time() - self.startTime
-
-        # check if the time difference is a multiple of 5 (every 5 seconds)
-        if time_difference % 5 == 0:
-            self.startTime = tm.time()
+        if(self.steps % 5 == 0):
             self.putFood()
 
     # get the grid
