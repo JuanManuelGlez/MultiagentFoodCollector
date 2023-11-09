@@ -8,19 +8,19 @@ import pandas as pd
 
 import time as tm
 
-from API.Agents.RecolectorAgent import RecolectorAgent
-from API.Agents.ExplorerAgent import ExplorerAgent
+from Agents.RecolectorAgent import RecolectorAgent
+from Agents.ExplorerAgent import ExplorerAgent
 
 
 class foodColectionModel(Model):
-    def __init__(self,width,height,numRecolectors,numExplorers,totalFood):
+    def __init__(self, width, height, numRecolectors, numExplorers, totalFood):
         self.numRecolectors = numRecolectors
         self.numExplorers = numExplorers
         self.totalFood = totalFood
         self.width = width
         self.height = height
         self.schedule = RandomActivation(self)
-        self.grid = SingleGrid(self.width,self.height,True)
+        self.grid = SingleGrid(self.width, self.height, True)
 
         self.minFood = 2
         self.maxFood = 5
@@ -32,46 +32,53 @@ class foodColectionModel(Model):
         np.random.seed(1234)
 
         # Create Floor
-        self.floor = np.zeros((self.width,self.height))
+        self.floor = np.zeros((self.width, self.height))
 
         # data collector
         self.datacollector = DataCollector(
-            model_reporters = {"Total Food": self.getGrid},
+            model_reporters={"Total Food": self.getGrid},
         )
 
+        id = 0
         # Create Agents
-        for i in range(self.numRecolectors):
-            x = np.random.randint(0,self.width)
-            y = np.random.randint(0,self.height)
-            a = RecolectorAgent(i,self)
+        for i in range(numRecolectors):
+            x = np.random.randint(0, self.width)
+            y = np.random.randint(0, self.height)
+            a = RecolectorAgent(id, self)
             self.schedule.add(a)
-            self.grid.place_agent(a,(x,y))
+            self.grid.place_agent(a, (x, y))
+            id += 1
 
-        for i in range(self.numExplorers):
-            x = np.random.randint(0,self.width)
-            y = np.random.randint(0,self.height)
-            a = ExplorerAgent(i,self)
+        for i in range(numExplorers):
+            x = np.random.randint(0, self.width)
+            y = np.random.randint(0, self.height)
+            a = ExplorerAgent(id, self)
             self.schedule.add(a)
-            self.grid.place_agent(a,(x,y))
+            self.grid.place_agent(a, (x, y))
+            id += 1
 
     # Put food in the floor
     def putFood(self):
-        for i in range(self.totalFood):
-            x = np.random.randint(0,self.width)
-            y = np.random.randint(0,self.height)
-            self.floor[x][y] += 1
+        putted = False
+        while (not putted and self.currFood < self.totalFood):
+            x = np.random.randint(0, self.width)
+            y = np.random.randint(0, self.height)
+            if (self.floor[x][y] == 0):
+                self.floor[x][y] = 1
+                self.currFood += 1
+                putted = True
 
     def checkToPutFood(self):
-        if(self.steps % 5 == 0):
+        if (self.steps % 5 == 0):
             self.putFood()
 
     # get the grid
     def getGrid(self):
-        return self.grid.copy()
-    
+        return self.floor.copy()
+
     # Steps
     def step(self):
         self.schedule.step()
         self.steps += 1
         self.datacollector.collect(self)
-        self.checkToPutFood(self)
+        self.checkToPutFood()
