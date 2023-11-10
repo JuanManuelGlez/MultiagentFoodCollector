@@ -57,19 +57,26 @@ class foodColectionModel(Model):
             self.grid.place_agent(a, (x, y))
             id += 1
 
-    # Put food in the floor
-    def putFood(self):
-        putted = False
-        while (not putted and self.currFood < self.totalFood):
+    def getEmptyCoords(self, foodToGenerate):
+        emptyCoords = []
+        while(len(emptyCoords) < foodToGenerate):
             x = np.random.randint(0, self.width)
             y = np.random.randint(0, self.height)
-            if (self.floor[x][y] == 0):
-                self.floor[x][y] = 1
-                self.currFood += 1
-                putted = True
+            if(self.floor[x][y] == 0):
+                emptyCoords.append((x, y))
+        return emptyCoords
+
+
+    # Put food in the floor
+    def putFood(self):
+        foodToGenerate = np.random.randint(self.minFood, self.maxFood)
+        emptyCoords = self.getEmptyCoords(foodToGenerate)
+        for coord in emptyCoords:
+            self.floor[coord[0]][coord[1]] = 1
+            self.currFood += 1
 
     def checkToPutFood(self):
-        if (self.steps % 5 == 0):
+        if ((self.steps + 1) % 5 == 0):
             self.putFood()
 
     # get the grid
@@ -78,7 +85,7 @@ class foodColectionModel(Model):
 
     # Steps
     def step(self):
-        self.schedule.step()
         self.steps += 1
-        self.datacollector.collect(self)
         self.checkToPutFood()
+        self.datacollector.collect(self)
+        self.schedule.step()
