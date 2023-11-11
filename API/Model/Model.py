@@ -20,7 +20,7 @@ class foodColectionModel(Model):
         self.width = width
         self.height = height
         self.schedule = RandomActivation(self)
-        self.grid = SingleGrid(self.width, self.height, True)
+        self.grid = SingleGrid(self.width, self.height, torus=False)
 
         self.minFood = 2
         self.maxFood = 5
@@ -36,7 +36,8 @@ class foodColectionModel(Model):
 
         # data collector
         self.datacollector = DataCollector(
-            model_reporters={"Total Food": self.getGrid},
+            model_reporters={"Food": self.getGrid, 
+                             "Agents": self.getAgents},
         )
 
         id = 0
@@ -56,6 +57,11 @@ class foodColectionModel(Model):
             self.schedule.add(a)
             self.grid.place_agent(a, (x, y))
             id += 1
+
+        # Put deposit
+        self.initDeposit()
+
+    
 
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
@@ -82,6 +88,22 @@ class foodColectionModel(Model):
     # get the grid
     def getGrid(self):
         return self.floor.copy()
+    
+    # get the agents
+    def getAgents(self):
+        agentsPosition = np.zeros((self.width, self.height))
+        for agent in self.schedule.agents:
+            x, y = agent.pos
+            if(agent.type == 1):
+                agentsPosition[x][y] = 1
+            else:
+                agentsPosition[x][y] = 2
+        return agentsPosition
+    
+    def initDeposit(self):
+        x = np.random.randint(0, self.width)
+        y = np.random.randint(0, self.height)
+        self.floor[x][y] = -1
 
     # Steps
     def step(self):
