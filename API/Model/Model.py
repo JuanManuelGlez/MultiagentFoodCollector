@@ -22,10 +22,20 @@ class foodColectionModel(Model):
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(self.width, self.height, torus=False)
 
+        # Food parameters
         self.minFood = 2
         self.maxFood = 5
         self.currFood = 0
 
+        # Deposit parameters
+        self.foundDeposit = False
+        self.depositCoord = None
+        self.depositQuantity = 0
+
+        # Food positions
+        self.foodPositions = []
+
+        # Steps
         self.steps = 0
 
         # Random seed
