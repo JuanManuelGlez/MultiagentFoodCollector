@@ -42,7 +42,6 @@ class ExplorerAgent(Agent):
         if self.model.floor[x][y] == 1:
             if not self.foodIsAdded(x, y):
                 self.model.foodPositions.append((x, y))
-                print(len(self.model.foodPositions))
 
         possibleSteps = self.model.grid.get_neighborhood(
             self.pos, moore=True, include_center=False)
