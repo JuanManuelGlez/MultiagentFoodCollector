@@ -7,34 +7,57 @@ class ExplorerAgent(Agent):
         self.type = 1
 
     def step(self):
-        self.move()
+        if (self.model.foundDeposit == False):
+            self.searchDeposit()
+        else:
+            self.searchFood()
 
-    def move(self):
+    def searchDeposit(self):
         # check if the agent found the deposit
         x, y = self.pos
         if self.model.floor[x][y] == -1:
             self.model.foundDeposit = True
             self.model.depositCoord = (x, y)
             print("Deposit found at: ", x, y)
-            print(self.model.depositCoord)
 
         # check if the agent found food
         elif self.model.floor[x][y] == 1:
             if not self.foodIsAdded(x, y):
                 self.model.foodPositions.append((x, y))
-                print("Food found at: ", x, y)
 
-        # Move
-        else:
-            possibleSteps = self.model.grid.get_neighborhood(
-                self.pos, moore=True, include_center=False)
+        possibleSteps = self.model.grid.get_neighborhood(
+            self.pos, moore=True, include_center=False)
 
-            emptySteps = [
-                step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
+        emptySteps = [
+            step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
 
-            if emptySteps:
-                new_position = self.random.choice(emptySteps)
-                self.model.grid.move_agent(self, new_position)
+        if emptySteps:
+            new_position = self.random.choice(emptySteps)
+            self.model.grid.move_agent(self, new_position)
+
+    def searchFood(self):
+        # check if the agent found the deposit
+        x, y = self.pos
+        # check if the agent found food
+        if self.model.floor[x][y] == 1:
+            if not self.foodIsAdded(x, y):
+                self.model.foodPositions.append((x, y))
+                print(len(self.model.foodPositions))
+
+        possibleSteps = self.model.grid.get_neighborhood(
+            self.pos, moore=True, include_center=False)
+
+        emptySteps = [
+            step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
+
+        # exclude the deposit from the possible steps
+        for step in emptySteps:
+            if self.model.floor[step[0]][step[1]] == -1:
+                emptySteps.remove(step)
+
+        if emptySteps:
+            new_position = self.random.choice(emptySteps)
+            self.model.grid.move_agent(self, new_position)
 
     # Checks if the food is already added to the list
     def foodIsAdded(self, x, y):

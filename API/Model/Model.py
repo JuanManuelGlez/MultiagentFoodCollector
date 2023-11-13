@@ -75,7 +75,7 @@ class foodColectionModel(Model):
 
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
-        while(len(emptyCoords) < foodToGenerate):
+        while(len(emptyCoords) <= foodToGenerate):
             x = np.random.randint(0, self.width)
             y = np.random.randint(0, self.height)
             if(self.floor[x][y] == 0):
@@ -86,10 +86,11 @@ class foodColectionModel(Model):
     # Put food in the floor
     def putFood(self):
         foodToGenerate = np.random.randint(self.minFood, self.maxFood)
-        emptyCoords = self.getEmptyCoords(foodToGenerate)
-        for coord in emptyCoords:
-            self.floor[coord[0]][coord[1]] = 1
-            self.currFood += 1
+        if(self.currFood + foodToGenerate < self.totalFood):
+            emptyCoords = self.getEmptyCoords(foodToGenerate)
+            for coord in emptyCoords:
+                self.floor[coord[0]][coord[1]] = 1
+                self.currFood += 1
 
     def checkToPutFood(self):
         if ((self.steps + 1) % 5 == 0):
