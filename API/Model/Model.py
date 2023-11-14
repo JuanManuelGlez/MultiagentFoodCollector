@@ -8,7 +8,7 @@ import pandas as pd
 
 import time as tm
 
-from Agents.RecolectorAgent import RecolectorAgent
+from Agents.CollectorAgent import CollectorAgent
 from Agents.ExplorerAgent import ExplorerAgent
 
 
@@ -55,7 +55,7 @@ class foodColectionModel(Model):
         for i in range(numRecolectors):
             x = np.random.randint(0, self.width)
             y = np.random.randint(0, self.height)
-            a = RecolectorAgent(id, self)
+            a = CollectorAgent(id, self)
             self.schedule.add(a)
             self.grid.place_agent(a, (x, y))
             id += 1
