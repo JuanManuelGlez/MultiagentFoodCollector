@@ -16,7 +16,7 @@ class CollectorAgent(Agent):
         # Agent has found deposit
         elif not self.carryFood and self.model.foundDeposit:
             # If found food, mark that position as 0 and mark Carry as True
-            if self.model.floor[x][y]:
+            if self.model.floor[x][y] == 1:
                 self.foundFoodAtPosition()
 
             # Not found food move to closest food
@@ -28,7 +28,7 @@ class CollectorAgent(Agent):
 
         # Agent has carrying food and the deposit has been found
         elif self.carryFood and self.model.foundDeposit:
-            if self.carryFood and (x, y) == (self.model.depositCoord):
+            if self.carryFood == True and (x, y) == (self.model.depositCoord):
                 self.dropFood()
             else:
                 self.moveFoodToDeposit()
