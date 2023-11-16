@@ -70,3 +70,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+API/main-MacBook Pro de Guty.ipynb
+API/Model/Model-MacBook Pro de Guty.py
+API/Agents/ExplorerAgent-MacBook Pro de Guty.py
+API/Agents/__pycache__/ExplorerAgent.cpython-311-MacBook Pro de Guty.pyc
+API/Model/__pycache__/Model.cpython-311-MacBook Pro de Guty.pyc
