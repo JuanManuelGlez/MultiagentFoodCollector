@@ -75,3 +75,8 @@ API/Model/Model-MacBook Pro de Guty.py
 API/Agents/ExplorerAgent-MacBook Pro de Guty.py
 API/Agents/__pycache__/ExplorerAgent.cpython-311-MacBook Pro de Guty.pyc
 API/Model/__pycache__/Model.cpython-311-MacBook Pro de Guty.pyc
+
+API/Model/__pycache__
+API/Agents/__pycache__
+
+.DS_Store
