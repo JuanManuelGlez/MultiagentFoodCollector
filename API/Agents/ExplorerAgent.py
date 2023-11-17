@@ -12,7 +12,7 @@ class ExplorerAgent(Agent):
         self.moveLeft = False
         self.goalPosition = ()
         self.endPosition = ()
-        self.random.seed(1234)
+        self.random.seed(12345)
 
     def step(self):
         (x, y) = self.pos

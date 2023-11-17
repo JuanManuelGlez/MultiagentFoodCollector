@@ -39,7 +39,7 @@ class foodColectionModel(Model):
         self.steps = 0
 
         # Random seed
-        self.random.seed(1234)
+        self.random.seed(12345)
 
         # Create Floor
         self.floor = np.zeros((self.width, self.height))

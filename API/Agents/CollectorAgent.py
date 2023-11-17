@@ -6,6 +6,7 @@ class CollectorAgent(Agent):
         super().__init__(unique_id, model)
         self.type = 2
         self.carryFood = False
+        self.random.seed(12345)
 
     def step(self):
         self.model.steps+=1
