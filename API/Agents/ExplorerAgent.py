@@ -12,11 +12,13 @@ class ExplorerAgent(Agent):
         self.moveLeft = False
         self.goalPosition = ()
         self.endPosition = ()
+        self.random.seed(1234)
 
     def step(self):
         (x, y) = self.pos
         
-        if self.model.steps >= 30 and not self.isPositioned and self.model.positionZone < 5:
+        # Move until all food is generated and agent not positioned
+        if self.model.steps >= 55 and not self.isPositioned and self.model.positionZone < 5:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -37,7 +39,8 @@ class ExplorerAgent(Agent):
                     if self.model.grid.is_cell_empty((moveX, moveY)):
                         self.model.grid.move_agent(self, (moveX, moveY))
 
-        elif self.model.steps >= 30 and self.model.positionZone == 5:
+        # Move until all food is generated and if agents are in position explore food
+        elif self.model.steps >= 55 and self.model.positionZone == 5:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -47,7 +50,8 @@ class ExplorerAgent(Agent):
                 self.model.depositCoord = (x, y)
                 print("Deposit found at:", (x, y))
             self.moveInPattern()
-
+            
+    # Search deposit
     def searchDeposit(self):
         # check if the agent found the deposit
         x, y = self.pos
@@ -61,8 +65,7 @@ class ExplorerAgent(Agent):
             if not self.foodIsAdded(x, y):
                 self.model.foodPositions.append((x, y))
 
-        possibleSteps = self.model.grid.get_neighborhood(
-            self.pos, moore=True, include_center=False)
+        possibleSteps = self.getRandomNeighborhood()
 
         emptySteps = [
             step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
@@ -71,6 +74,7 @@ class ExplorerAgent(Agent):
             new_position = self.random.choice(emptySteps)
             self.model.grid.move_agent(self, new_position)
 
+    # Look for food
     def searchFood(self):
         # check if the agent found the deposit
         x, y = self.pos
@@ -103,8 +107,7 @@ class ExplorerAgent(Agent):
 
     # Get the positions to cover agents
     def positionAgents(self):
-        neighborCells = self.model.grid.get_neighborhood(
-            self.pos, moore=True, include_center = False)
+        neighborCells = self.getRandomNeighborhood()
         minIndexDistance = -1
         for i in range(len(self.model.zonesDict)):
             if self.unique_id == i:
@@ -144,4 +147,9 @@ class ExplorerAgent(Agent):
 
             # Check for direction switches
             if (y == len(self.model.floor) - 1 and self.moveRight) or (y == 0 and self.moveLeft):
-                self.moveDown = True  # Switch direction after reaching the end or start
+                self.moveDown = True
+
+    # Helper to get neighborhood cells
+    def getRandomNeighborhood(self):
+        return self.model.grid.get_neighborhood(self.pos, moore = True, include_center = False)
+

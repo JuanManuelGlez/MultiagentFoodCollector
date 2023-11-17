@@ -8,7 +8,7 @@ import pandas as pd
 
 import time as tm
 
-from Agents.RecolectorAgent import RecolectorAgent
+from Agents.CollectorAgent import CollectorAgent
 from Agents.ExplorerAgent import ExplorerAgent
 
 
@@ -39,7 +39,7 @@ class foodColectionModel(Model):
         self.steps = 0
 
         # Random seed
-        np.random.seed(1234)
+        self.random.seed(1234)
 
         # Create Floor
         self.floor = np.zeros((self.width, self.height))
@@ -48,6 +48,11 @@ class foodColectionModel(Model):
         self.zonesDict = {}
         self.partitionZone()
         self.positionZone = 0
+        self.closestFoodDict = {}
+        
+        # Change of roles
+        self.changedRoles = False
+        self.id = 0
 
         # data collector
         self.datacollector = DataCollector(
@@ -55,28 +60,17 @@ class foodColectionModel(Model):
                              "Agents": self.getAgents},
         )
         
-        id = 0
-        # Create Agents
-        # for i in range(numRecolectors):
-        #     x = np.random.randint(0, self.width)
-        #     y = np.random.randint(0, self.height)
-        #     a = RecolectorAgent(id, self)
-        #     self.schedule.add(a)
-        #     self.grid.place_agent(a, (x, y))
-        #     id += 1
-
         for i in range(numExplorers):
             x = np.random.randint(0, self.width)
             y = np.random.randint(0, self.height)
-            a = ExplorerAgent(id, self)
+            a = ExplorerAgent(self.id, self)
             self.schedule.add(a)
             self.grid.place_agent(a, (x, y))
-            id += 1
+            self.id += 1
 
         # Put deposit
         self.initDeposit()
 
-    
 
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
@@ -91,11 +85,12 @@ class foodColectionModel(Model):
     # Put food in the floor
     def putFood(self):
         foodToGenerate = np.random.randint(self.minFood, self.maxFood)
-        if(self.currFood + foodToGenerate < self.totalFood):
-            emptyCoords = self.getEmptyCoords(foodToGenerate)
-            for coord in emptyCoords:
-                self.floor[coord[0]][coord[1]] = 1
-                self.currFood += 1
+        if (self.currFood + foodToGenerate > self.totalFood):
+            foodToGenerate = self.totalFood - self.currFood
+        emptyCoords = self.getEmptyCoords(foodToGenerate)
+        for coord in emptyCoords:
+            self.floor[coord[0]][coord[1]] = 1
+            self.currFood += 1
 
     def checkToPutFood(self):
         if ((self.steps + 1) % 5 == 0):
@@ -125,6 +120,9 @@ class foodColectionModel(Model):
     def step(self):
         self.steps += 1
         self.checkToPutFood()
+        if (len (self.foodPositions)) == 47 and not self.changedRoles:
+            self.changedRoles = True
+            self.changeRoles()
         self.datacollector.collect(self)
         self.schedule.step()
     
@@ -144,11 +142,17 @@ class foodColectionModel(Model):
                     zone_data.append((row, col))
 
             self.zonesDict[zone_id] = zone_data
-            
-    # Change agent
-    def change_agent_type(self, agent_id):
-        agent = self.schedule.agents[agent_id]
-        new_agent = ExplorerAgent(agent.unique_id, self)
-        new_agent.pos = agent.pos
-        self.schedule.remove(agent)
-        self.schedule.add(new_agent)
+    
+    # Change of roles
+    def changeRoles(self):
+        for agent in self.schedule.agents:
+            if isinstance(agent, ExplorerAgent) and len(self.foodPositions) == 47:
+                # Remove the existing agent
+                x, y = agent.pos
+                self.grid.remove_agent(agent)
+                self.schedule.remove(agent)
+                self.id += 1
+                # Place an agent of the new type (CollectorAgent in this case)
+                new_agent = CollectorAgent(self.id, self)
+                self.schedule.add(new_agent)
+                self.grid.place_agent(new_agent, (x, y))
