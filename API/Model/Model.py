@@ -46,7 +46,7 @@ class foodColectionModel(Model):
 
         # data collector
         self.datacollector = DataCollector(
-            model_reporters={"Food": self.getGrid, 
+            model_reporters={"Food": self.getGrid,
                              "Agents": self.getAgents},
         )
 
@@ -71,26 +71,25 @@ class foodColectionModel(Model):
         # Put deposit
         self.initDeposit()
 
-    
-
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
-        while(len(emptyCoords) <= foodToGenerate):
+        while (len(emptyCoords) <= foodToGenerate):
             x = np.random.randint(0, self.width)
             y = np.random.randint(0, self.height)
-            if(self.floor[x][y] == 0):
+            if (self.floor[x][y] == 0):
                 emptyCoords.append((x, y))
         return emptyCoords
 
-
     # Put food in the floor
+
     def putFood(self):
         foodToGenerate = np.random.randint(self.minFood, self.maxFood)
-        if(self.currFood + foodToGenerate < self.totalFood):
-            emptyCoords = self.getEmptyCoords(foodToGenerate)
-            for coord in emptyCoords:
-                self.floor[coord[0]][coord[1]] = 1
-                self.currFood += 1
+        if (self.currFood + foodToGenerate > self.totalFood):
+            foodToGenerate = self.totalFood - self.currFood
+        emptyCoords = self.getEmptyCoords(foodToGenerate)
+        for coord in emptyCoords:
+            self.floor[coord[0]][coord[1]] = 1
+            self.currFood += 1
 
     def checkToPutFood(self):
         if ((self.steps + 1) % 5 == 0):
@@ -99,18 +98,18 @@ class foodColectionModel(Model):
     # get the grid
     def getGrid(self):
         return self.floor.copy()
-    
+
     # get the agents
     def getAgents(self):
         agentsPosition = np.zeros((self.width, self.height))
         for agent in self.schedule.agents:
             x, y = agent.pos
-            if(agent.type == 1):
+            if (agent.type == 1):
                 agentsPosition[x][y] = 1
             else:
                 agentsPosition[x][y] = 2
         return agentsPosition
-    
+
     def initDeposit(self):
         x = np.random.randint(0, self.width)
         y = np.random.randint(0, self.height)
