@@ -25,14 +25,15 @@ class CollectorAgent(Agent):
                     self.moveToClosestFood()
                 else:
                     self.moveRandomly()
+                    
 
         # Agent has carrying food and the deposit has been found
         elif self.carryFood and self.model.foundDeposit:
-            if self.carryFood and (x, y) == (self.model.depositCoord):
+            if self.carryFood == True and (x, y) == (self.model.depositCoord):
                 self.dropFood()
             else:
                 self.moveFoodToDeposit()
-    
+
     def searchDeposit(self):
         x, y = self.pos
         # Check if the agent found the deposit
@@ -130,9 +131,13 @@ class CollectorAgent(Agent):
     # Move randomly
     def moveRandomly(self):
         # Obtain random neighbors to move
-        neighborRandom = self.model.grid.get_neighborhood(self.pos, moore = True, include_center = False)
-        # Select random neighbors to move
-        (newX, newY) = self.random.choice(neighborRandom)
-        if self.model.grid.is_cell_empty((newX, newY)):
-            self.model.grid.move_agent(self, (newX, newY))
+        possibleSteps = self.model.grid.get_neighborhood(
+            self.pos, moore=True, include_center=False)
+
+        emptySteps = [
+            step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
+        
+        if emptySteps:
+            new_position = self.random.choice(emptySteps)
+            self.model.grid.move_agent(self, new_position)
     
