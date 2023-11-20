@@ -2,6 +2,7 @@ from mesa import Agent, Model
 from enum import Enum
 import math
 
+
 class ExplorerAgent(Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
@@ -16,7 +17,7 @@ class ExplorerAgent(Agent):
 
     def step(self):
         (x, y) = self.pos
-        
+
         # Move until all food is generated and agent not positioned
         if self.model.steps >= 55 and not self.isPositioned and self.model.positionZone < 5:
             if self.model.floor[x][y] == 1:
@@ -50,7 +51,7 @@ class ExplorerAgent(Agent):
                 self.model.depositCoord = (x, y)
                 print("Deposit found at:", (x, y))
             self.moveInPattern()
-            
+
     # Search deposit
     def searchDeposit(self):
         # check if the agent found the deposit
@@ -112,19 +113,21 @@ class ExplorerAgent(Agent):
         for i in range(len(self.model.zonesDict)):
             if self.unique_id == i:
                 self.goalPosition = self.model.zonesDict[i][0][0], self.model.zonesDict[i][0][1]
-                self.endPosition = self.model.zonesDict[i][len(self.model.zonesDict[i]) - 1][0], 0
+                self.endPosition = self.model.zonesDict[i][len(
+                    self.model.zonesDict[i]) - 1][0], 0
                 distances = []
                 for step in neighborCells:
                     newX, newY = step
                     goalX, goalY = self.goalPosition
                     if self.model.grid.is_cell_empty((newX, newY)):
-                        distances.append(math.sqrt((newX - goalX)**2 + (newY - goalY)** 2))
+                        distances.append(
+                            math.sqrt((newX - goalX)**2 + (newY - goalY) ** 2))
                 if len(distances) > 0:
                     minIndexDistance = distances.index(min(distances))
         if minIndexDistance != -1:
             return neighborCells[minIndexDistance]
         return None
-    
+
     # Move in snake pattern
     def moveInPattern(self):
         (x, y) = self.pos
@@ -151,5 +154,4 @@ class ExplorerAgent(Agent):
 
     # Helper to get neighborhood cells
     def getRandomNeighborhood(self):
-        return self.model.grid.get_neighborhood(self.pos, moore = True, include_center = False)
-
+        return self.model.grid.get_neighborhood(self.pos, moore=True, include_center=False)

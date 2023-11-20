@@ -1,6 +1,7 @@
 from mesa import Agent, Model
 import math
 
+
 class CollectorAgent(Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
@@ -9,7 +10,7 @@ class CollectorAgent(Agent):
         self.random.seed(12345)
 
     def step(self):
-        self.model.steps+=1
+        self.model.steps += 1
         x, y = self.pos
         # Agent has not found deposit
         if not self.model.foundDeposit:
@@ -26,7 +27,6 @@ class CollectorAgent(Agent):
                     self.moveToClosestFood()
                 else:
                     self.moveRandomly()
-                    
 
         # Agent has carrying food and the deposit has been found
         elif self.carryFood and self.model.foundDeposit:
@@ -64,23 +64,24 @@ class CollectorAgent(Agent):
         for step in neighborCells:
             newX, newY = step
             if self.model.grid.is_cell_empty((newX, newY)):
-                distances.append(math.sqrt((newX - closeFoodX)**2 + (newY - closeFoodY)** 2))
-        
+                distances.append(math.sqrt((newX - closeFoodX)
+                                 ** 2 + (newY - closeFoodY) ** 2))
+
         minIndexDistance = distances.index(min(distances))
         return neighborCells[minIndexDistance]
-    
+
     # Look for a position to go to with the min distance to food deposit
     def moveFoodToDeposit(self):
         (depX, depY) = self.model.depositCoord
         neighborCells = self.model.grid.get_neighborhood(
-            self.pos, moore = True, include_center = False)
-        
+            self.pos, moore=True, include_center=False)
+
         moveX, moveY = self.lookMinDistance(neighborCells,
                                             depX,
                                             depY)
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
-    
+
     # Look for the food coords closest to current position
     def getFoodCoords(self):
         x, y = self.pos
@@ -89,20 +90,20 @@ class CollectorAgent(Agent):
         distances = []
         for i in range(len(self.model.foodPositions)):
             newX, newY = self.model.foodPositions[i]
-            distances.append(math.sqrt((newX - x)**2 + (newY - y)** 2))
+            distances.append(math.sqrt((newX - x)**2 + (newY - y) ** 2))
         minIndexDistance = distances.index(min(distances))
         return self.model.foodPositions[minIndexDistance]
-    
+
     # Move to the closest Food and move to that position if valid cell
     def moveToClosestFood(self):
         (closeFoodX, closeFoodY) = self.getFoodCoords()
-        
+
         neighborCells = self.model.grid.get_neighborhood(
-            self.pos, moore = True, include_center = False)
+            self.pos, moore=True, include_center=False)
 
         (moveX, moveY) = self.lookMinDistance(neighborCells,
-                                            closeFoodX,
-                                            closeFoodY)
+                                              closeFoodX,
+                                              closeFoodY)
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
 
@@ -115,20 +116,20 @@ class CollectorAgent(Agent):
             if tuple == (x, y):
                 self.model.foodPositions.remove(tuple)
         self.moveFoodToDeposit()
-        
+
         # Handle logic after dropping food
     def dropFood(self):
         self.model.depositQuantity += 1
         self.carryFood = False
         self.moveRandomly()
-            
+
     # Checks if the food is already added to the list
     def foodIsAdded(self, x, y):
         for food in self.model.foodPositions:
             if (food[0] == x and food[1] == y):
                 return True
         return False
-    
+
     # Move randomly
     def moveRandomly(self):
         # Obtain random neighbors to move
@@ -137,8 +138,7 @@ class CollectorAgent(Agent):
 
         emptySteps = [
             step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
-        
+
         if emptySteps:
             new_position = self.random.choice(emptySteps)
             self.model.grid.move_agent(self, new_position)
-    

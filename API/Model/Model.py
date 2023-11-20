@@ -13,9 +13,8 @@ from Agents.ExplorerAgent import ExplorerAgent
 
 
 class foodColectionModel(Model):
-    def __init__(self, width, height, numRecolectors, numExplorers, totalFood):
-        self.numRecolectors = numRecolectors
-        self.numExplorers = numExplorers
+    def __init__(self, width, height, numAgents, totalFood):
+        self.numAgents = numAgents
         self.totalFood = totalFood
         self.width = width
         self.height = height
@@ -43,13 +42,13 @@ class foodColectionModel(Model):
 
         # Create Floor
         self.floor = np.zeros((self.width, self.height))
-        
+
         # Zone partition
         self.zonesDict = {}
         self.partitionZone()
         self.positionZone = 0
         self.closestFoodDict = {}
-        
+
         # Change of roles
         self.changedRoles = False
         self.id = 0
@@ -59,14 +58,18 @@ class foodColectionModel(Model):
             model_reporters={"Food": self.getGrid,
                              "Agents": self.getAgents},
         )
-        
-        for i in range(numExplorers):
-            x = np.random.randint(0, self.width)
-            y = np.random.randint(0, self.height)
-            a = ExplorerAgent(self.id, self)
-            self.schedule.add(a)
-            self.grid.place_agent(a, (x, y))
-            self.id += 1
+
+        agentNumber = 0
+
+        while (agentNumber < self.numAgents):
+            x = self.random.randint(0, self.width)
+            y = self.random.randint(0, self.height)
+            if (self.grid.is_cell_empty((x, y))):
+                a = ExplorerAgent(self.id, self)
+                self.schedule.add(a)
+                self.grid.place_agent(a, (x, y))
+                self.id += 1
+                agentNumber += 1
 
         # Put deposit
         self.initDeposit()
@@ -74,8 +77,8 @@ class foodColectionModel(Model):
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
         while (len(emptyCoords) <= foodToGenerate):
-            x = np.random.randint(0, self.width)
-            y = np.random.randint(0, self.height)
+            x = self.random.randint(0, self.width - 1)
+            y = self.random.randint(0, self.height-1)
             if (self.floor[x][y] == 0):
                 emptyCoords.append((x, y))
         return emptyCoords
@@ -83,7 +86,7 @@ class foodColectionModel(Model):
     # Put food in the floor
 
     def putFood(self):
-        foodToGenerate = np.random.randint(self.minFood, self.maxFood)
+        foodToGenerate = self.random.randint(self.minFood, self.maxFood)
         if (self.currFood + foodToGenerate > self.totalFood):
             foodToGenerate = self.totalFood - self.currFood
         emptyCoords = self.getEmptyCoords(foodToGenerate)
@@ -111,20 +114,20 @@ class foodColectionModel(Model):
         return agentsPosition
 
     def initDeposit(self):
-        x = np.random.randint(0, self.width)
-        y = np.random.randint(0, self.height)
+        x = self.random.randint(0, self.width)
+        y = self.random.randint(0, self.height)
         self.floor[x][y] = -1
 
     # Steps
     def step(self):
         self.steps += 1
         self.checkToPutFood()
-        if (len (self.foodPositions)) == 47 and not self.changedRoles:
+        if (len(self.foodPositions)) == 47 and not self.changedRoles:
             self.changedRoles = True
             self.changeRoles()
         self.datacollector.collect(self)
         self.schedule.step()
-    
+
     # Partition in zones the grid and floor
     def partitionZone(self):
         zone_rows = 4
@@ -133,7 +136,7 @@ class foodColectionModel(Model):
         for zone_id in range(num_zones):
             start_row = zone_id * zone_rows
             end_row = min((zone_id + 1) * zone_rows, len(self.floor))
-            
+
             zone_data = []
 
             for agent, (row, col) in self.grid.coord_iter():
@@ -141,7 +144,7 @@ class foodColectionModel(Model):
                     zone_data.append((row, col))
 
             self.zonesDict[zone_id] = zone_data
-    
+
     # Change of roles
     def changeRoles(self):
         for agent in self.schedule.agents:
