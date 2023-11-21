@@ -31,13 +31,8 @@ class Server(BaseHTTPRequestHandler):
 
         all_data = model.datacollector.get_model_vars_dataframe()
 
-        allData = (all_data.get("Agents") +
-                   all_data.get("Food") * 10).to_list()
+        allData = all_data.get("AllData").to_list()
 
-        for i in range(len(allData)):
-            allData[i] = allData[i].tolist()
-
-        # pass to json
         json_data = json.dumps(allData)
 
         self.wfile.write(json_data.encode('utf-8'))

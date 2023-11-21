@@ -56,7 +56,8 @@ class foodColectionModel(Model):
         # data collector
         self.datacollector = DataCollector(
             model_reporters={"Food": self.getGrid,
-                             "Agents": self.getAgents}
+                             "Agents": self.getAgents,
+                             "AllData": self.getAllData}
         )
 
         agentNumber = 0
@@ -158,3 +159,38 @@ class foodColectionModel(Model):
                 new_agent = CollectorAgent(self.id, self)
                 self.schedule.add(new_agent)
                 self.grid.place_agent(new_agent, (x, y))
+
+    # get All the data for unity
+
+    def getAllData(self):
+        agentData = []
+        foodData = []
+        storageData = []
+
+        gridCopy = self.floor.copy()
+
+        # iterate over the grid copy and check for food
+        for i in range(len(gridCopy)):
+            for j in range(len(gridCopy[i])):
+                if gridCopy[i][j] == 1:
+                    foodData.append({"x": i, "z": j})
+                elif gridCopy[i][j] == -1:
+                    storageData.append({"x": i, "z": j})
+
+        # iterate over the agents and check for their positions
+        for agent in self.schedule.agents:
+            x, y = agent.pos
+            if agent.type == 1:
+                agentData.append({"x": x, "z": y, "type": 1,
+                                  "carryFood": False, "id": agent.unique_id})
+            else:
+                agentData.append({"x": x, "z": y, "type": 2,
+                                  "carryFood": agent.carryFood, "id": agent.unique_id})
+
+        return {
+            "Agents": agentData,
+            "Food": foodData,
+            "Storage": storageData,
+            "isChangedRoles": self.changedRoles,
+            "step": self.steps,
+        }
