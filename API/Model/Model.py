@@ -87,7 +87,7 @@ class foodColectionModel(Model):
 
     def putFood(self):
         foodToGenerate = self.random.randint(self.minFood, self.maxFood)
-        if (self.currFood + foodToGenerate > self.totalFood):
+        if (self.currFood + foodToGenerate >= self.totalFood):
             foodToGenerate = self.totalFood - self.currFood
         emptyCoords = self.getEmptyCoords(foodToGenerate)
         for coord in emptyCoords:
