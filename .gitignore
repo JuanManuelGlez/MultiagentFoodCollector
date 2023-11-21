@@ -81,3 +81,5 @@ API/Model/__pycache__/
 API/Agents/__pycache__/
 
 .DS_Store
+
+/.vscode
