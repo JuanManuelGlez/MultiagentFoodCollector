@@ -76,7 +76,7 @@ class foodColectionModel(Model):
 
     def getEmptyCoords(self, foodToGenerate):
         emptyCoords = []
-        while (len(emptyCoords) <= foodToGenerate):
+        while (len(emptyCoords) < foodToGenerate):
             x = self.random.randint(0, self.width - 1)
             y = self.random.randint(0, self.height-1)
             if (self.floor[x][y] == 0):
