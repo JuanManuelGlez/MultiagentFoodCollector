@@ -81,6 +81,8 @@ class CollectorAgent(Agent):
                                             depY)
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
+        else:
+            self.moveRandomly()
 
     # Look for the food coords closest to current position
     def getFoodCoords(self):
@@ -106,6 +108,8 @@ class CollectorAgent(Agent):
                                               closeFoodY)
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
+        else:
+            self.moveRandomly()
 
     # Found Food at position remove from global list once found
     def foundFoodAtPosition(self):
