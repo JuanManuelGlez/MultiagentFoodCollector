@@ -56,7 +56,7 @@ class foodColectionModel(Model):
         # data collector
         self.datacollector = DataCollector(
             model_reporters={"Food": self.getGrid,
-                             "Agents": self.getAgents},
+                             "Agents": self.getAgents}
         )
 
         agentNumber = 0
@@ -64,7 +64,7 @@ class foodColectionModel(Model):
         while (agentNumber < self.numAgents):
             x = self.random.randint(0, self.width)
             y = self.random.randint(0, self.height)
-            if (self.grid.is_cell_empty((x, y))):
+            if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
                 a = ExplorerAgent(self.id, self)
                 self.schedule.add(a)
                 self.grid.place_agent(a, (x, y))
