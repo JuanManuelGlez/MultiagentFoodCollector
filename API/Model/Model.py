@@ -181,7 +181,7 @@ class foodColectionModel(Model):
 
         # iterate over the agents and check for their positions
         for agent in self.schedule.agents:
-            x: int, y: int = agent.pos
+            x, y = agent.pos
             if agent.type == 1:
                 agentData.append({"x": x, "z": y, "type": 1,
                                   "carryFood": False, "id": agent.unique_id})
