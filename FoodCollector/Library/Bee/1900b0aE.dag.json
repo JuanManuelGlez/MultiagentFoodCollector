@@ -19639,7 +19639,7 @@
         "Assets/Scripts/Data/Model/resModel.cs",
         "Assets/Scripts/Data/Model/storage.cs",
         "Assets/Scripts/Data/Network/WebClient.cs",
-        "Assets/Scripts/Framework/Controllers/foodManager.cs",
+        "Assets/Scripts/Framework/Controllers/FoodManager.cs",
         "C:/Program Files/Unity/Hub/Editor/2022.3.12f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll",
         "C:/Program Files/Unity/Hub/Editor/2022.3.12f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll",
         "Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.rsp"

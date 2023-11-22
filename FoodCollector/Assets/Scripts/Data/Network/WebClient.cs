@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 public class WebClient : MonoBehaviour
 {
 
-    // public FoodManager foodManager;
+    public FoodManager foodManager;
 
     public Dictionary<int, List<Food>> foodMap = new Dictionary<int, List<Food>>();
 
@@ -38,20 +38,26 @@ public class WebClient : MonoBehaviour
                 resData = resModel;
 
                 ProcessData();
+
+
             }
         }
     }
 
 
     // Start is called before the first frame update
-    void Start()
+
+    IEnumerator Start()
     {
-        StartCoroutine(GetData());
+        yield return StartCoroutine(GetData());
+        ProcessData();
+        foodManager.OnDataLoaded(foodMap);
     }
 
     public void ProcessData()
     {
-        // Debug.Log(resData.data[60].Food.Count);
+        foodMap.Clear(); 
+
         for (int i = 0; i < resData.data.Count; i++)
         {
             ResModel resModel = resData.data[i];
@@ -68,7 +74,8 @@ public class WebClient : MonoBehaviour
 
             foodMap.Add(i, foodList);
         }
-    
+
+        foodManager.foodMap = foodMap;
     }
 
     // Update is called once per frame
