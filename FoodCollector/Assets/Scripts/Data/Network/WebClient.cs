@@ -13,7 +13,7 @@ public class WebClient : MonoBehaviour
 
     // public FoodManager foodManager;
 
-    private ResModel resData;
+    private DataModel resData;
 
     IEnumerator GetData()
     {
@@ -31,8 +31,11 @@ public class WebClient : MonoBehaviour
             else
             {
                 string jsonResponse = www.downloadHandler.text;
-                ResModel resModel = JsonUtility.FromJson<ResModel>(jsonResponse);
+                Debug.Log(jsonResponse);
+                DataModel resModel = JsonUtility.FromJson<DataModel>(jsonResponse);
                 resData = resModel;
+
+                ProcessData();
             }
         }
     }
@@ -42,10 +45,20 @@ public class WebClient : MonoBehaviour
     void Start()
     {
         StartCoroutine(GetData());
+    }
 
-        Debug.Log(resData);
-
-
+    public void ProcessData()
+    {
+        Debug.Log(resData.data[60].Food.Count);
+        for (int i = 0; i < resData.data.Count; i++)
+        {
+            ResModel resModel = resData.data[i];
+            if (resModel.Food.Count != 0)
+            {
+                Debug.Log(resModel.Food[0].x);
+                Debug.Log(resModel.Food[0].z);
+            }
+        }
     }
 
     // Update is called once per frame

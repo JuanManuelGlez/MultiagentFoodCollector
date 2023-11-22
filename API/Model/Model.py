@@ -36,6 +36,7 @@ class foodColectionModel(Model):
 
         # Steps
         self.steps = 0
+        self.stepsToJson = 0
 
         # Random seed
         self.random.seed(12345)
@@ -122,6 +123,7 @@ class foodColectionModel(Model):
     # Steps
     def step(self):
         self.steps += 1
+        self.stepsToJson += 1
         self.checkToPutFood()
         if (len(self.foodPositions)) == 47 and not self.changedRoles:
             self.changedRoles = True
@@ -175,11 +177,11 @@ class foodColectionModel(Model):
                 if gridCopy[i][j] == 1:
                     foodData.append({"x": i, "z": j})
                 elif gridCopy[i][j] == -1:
-                    storageData.append({"x": i, "z": j})
+                    storageData.append({"x": i, "z": j, "depositQuantity": self.depositQuantity})
 
         # iterate over the agents and check for their positions
         for agent in self.schedule.agents:
-            x, y = agent.pos
+            x: int, y: int = agent.pos
             if agent.type == 1:
                 agentData.append({"x": x, "z": y, "type": 1,
                                   "carryFood": False, "id": agent.unique_id})
@@ -192,5 +194,5 @@ class foodColectionModel(Model):
             "Food": foodData,
             "Storage": storageData,
             "isChangedRoles": self.changedRoles,
-            "step": self.steps,
-        }
+            "step": self.stepsToJson,
+            }

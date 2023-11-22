@@ -33,16 +33,18 @@ class Server(BaseHTTPRequestHandler):
 
         allData = all_data.get("AllData").to_list()
 
-        json_data = json.dumps(allData)
+        response_data = {
+            "data": allData
+        }
 
-        self.wfile.write(json_data.encode('utf-8'))
+        self.wfile.write(json.dumps(response_data).encode('utf-8'))
 
 # ...
 
     def do_GET(self):
         self._set_response()
-        self.wfile.write("GET request for {}".format(
-            self.path).encode('utf-8'))
+        # self.wfile.write("GET request for {}".format(
+        #     self.path).encode('utf-8'))
 
 
 def run(server_class=HTTPServer, handler_class=Server, port=8585):
