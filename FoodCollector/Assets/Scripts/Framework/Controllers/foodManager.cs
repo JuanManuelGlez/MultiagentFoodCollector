@@ -23,22 +23,9 @@ public class FoodManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("FoodMap count: " + foodMap.Count);
-
-        // Print the foodMap
-        for (int i = 0; i < foodMap.Count; i++)
-        {
-            List<Food> foodList = foodMap[i];
-            Debug.Log("FoodList count: " + foodList.Count);
-            for (int j = 0; j < foodList.Count; j++)
-            {
-                Food food = foodList[j];
-                Debug.Log("Food: " + food.x + ", " + food.z);
-            }
-        }
 
         // Generate food
-        StartCoroutine(GenerateFood());
+        StartCoroutine(GenerateFood()); 
     }
 
     IEnumerator GenerateFood()
@@ -62,7 +49,7 @@ public class FoodManager : MonoBehaviour
                 foodObject.tag = "Food";
             }
             step++;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
