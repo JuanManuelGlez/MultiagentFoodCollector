@@ -13,6 +13,8 @@ public class WebClient : MonoBehaviour
 
     // public FoodManager foodManager;
 
+    public Dictionary<int, List<Food>> foodMap = new Dictionary<int, List<Food>>();
+
     private DataModel resData;
 
     IEnumerator GetData()
@@ -49,16 +51,24 @@ public class WebClient : MonoBehaviour
 
     public void ProcessData()
     {
-        Debug.Log(resData.data[60].Food.Count);
+        // Debug.Log(resData.data[60].Food.Count);
         for (int i = 0; i < resData.data.Count; i++)
         {
             ResModel resModel = resData.data[i];
+            List<Food> foodList = new List<Food>();
+
             if (resModel.Food.Count != 0)
             {
-                Debug.Log(resModel.Food[0].x);
-                Debug.Log(resModel.Food[0].z);
+                for (int j = 0; j < resModel.Food.Count; j++)
+                {
+                    Food food = resModel.Food[j];
+                    foodList.Add(food);
+                }
             }
+
+            foodMap.Add(i, foodList);
         }
+    
     }
 
     // Update is called once per frame

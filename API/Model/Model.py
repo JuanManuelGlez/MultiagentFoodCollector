@@ -177,7 +177,8 @@ class foodColectionModel(Model):
                 if gridCopy[i][j] == 1:
                     foodData.append({"x": i, "z": j})
                 elif gridCopy[i][j] == -1:
-                    storageData.append({"x": i, "z": j, "depositQuantity": self.depositQuantity})
+                    storageData.append(
+                        {"x": i, "z": j, "depositQuantity": self.depositQuantity})
 
         # iterate over the agents and check for their positions
         for agent in self.schedule.agents:
@@ -195,4 +196,4 @@ class foodColectionModel(Model):
             "Storage": storageData,
             "isChangedRoles": self.changedRoles,
             "step": self.stepsToJson,
-            }
+        }

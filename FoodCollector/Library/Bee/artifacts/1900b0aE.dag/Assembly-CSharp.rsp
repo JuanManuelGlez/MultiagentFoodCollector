@@ -354,10 +354,12 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.12f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.12f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Data/Model/agent.cs"
+"Assets/Scripts/Data/Model/dataModel.cs"
 "Assets/Scripts/Data/Model/food.cs"
 "Assets/Scripts/Data/Model/resModel.cs"
 "Assets/Scripts/Data/Model/storage.cs"
 "Assets/Scripts/Data/Network/WebClient.cs"
+"Assets/Scripts/Framework/Controllers/foodManager.cs"
 -langversion:9.0
 
 /deterministic
