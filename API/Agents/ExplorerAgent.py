@@ -14,12 +14,13 @@ class ExplorerAgent(Agent):
         self.goalPosition = ()
         self.endPosition = ()
         self.random.seed(12345)
+        self.moveBeginning = False
 
     def step(self):
         (x, y) = self.pos
 
         # Move until all food is generated and agent not positioned
-        if self.model.steps >= 55 and not self.isPositioned and self.model.positionZone < 5:
+        if not self.isPositioned and self.model.positionZone < 5:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -41,7 +42,7 @@ class ExplorerAgent(Agent):
                         self.model.grid.move_agent(self, (moveX, moveY))
 
         # Move until all food is generated and if agents are in position explore food
-        elif self.model.steps >= 55 and self.model.positionZone == 5:
+        elif self.model.positionZone == 5:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -131,27 +132,43 @@ class ExplorerAgent(Agent):
     # Move in snake pattern
     def moveInPattern(self):
         (x, y) = self.pos
-        if not self.pos == self.endPosition:
-            # Move right until right hand side
-            if self.moveRight and y < len(self.model.floor) - 1:
-                self.model.grid.move_agent(self, (x, y + 1))
-            # Move left
-            elif self.moveLeft and y > 0:
-                self.model.grid.move_agent(self, (x, y - 1))
-            # Move down if it comes from the right side or left side
-            elif self.moveDown and (self.moveRight and y == (len(self.model.floor) - 1) or (self.moveLeft) and y == 0):
-                if self.moveLeft:
-                    self.moveLeft = False
-                    self.moveRight = True
-                else:
-                    self.moveRight = False
-                    self.moveLeft = True
-                self.model.grid.move_agent(self, (x + 1, y))
+        if len(self.model.foodPositions) < 48:
+            if not self.pos == self.endPosition and not self.moveBeginning:
+                # Move right until right hand side
+                if self.moveRight and y < len(self.model.floor) - 1:
+                    self.model.grid.move_agent(self, (x, y + 1))
+                # Move left
+                elif self.moveLeft and y > 0:
+                    self.model.grid.move_agent(self, (x, y - 1))
+                # Move down if it comes from the right side or left side
+                elif self.moveDown and (self.moveRight and y == (len(self.model.floor) - 1) or (self.moveLeft) and y == 0):
+                    if self.moveLeft:
+                        self.moveLeft = False
+                        self.moveRight = True
+                    else:
+                        self.moveRight = False
+                        self.moveLeft = True
+                    self.model.grid.move_agent(self, (x + 1, y))
 
-            # Check for direction switches
-            if (y == len(self.model.floor) - 1 and self.moveRight) or (y == 0 and self.moveLeft):
-                self.moveDown = True
+                # Check for direction switches
+                if (y == len(self.model.floor) - 1 and self.moveRight) or (y == 0 and self.moveLeft):
+                    self.moveDown = True
+            else:
+                self.moveBeginning = True
+                self.moveToBeginning()
 
     # Helper to get neighborhood cells
     def getRandomNeighborhood(self):
         return self.model.grid.get_neighborhood(self.pos, moore=True, include_center=False)
+    
+    # Helper to go to beginning
+    def moveToBeginning(self):
+        (x, y) = self.pos
+        (begX, begY) = self.goalPosition
+        if begX != x:
+            self.model.grid.move_agent(self, (x - 1, y))
+        else:
+            self.moveDown = False
+            self.moveRight = True
+            self.moveLeft = False
+            self.moveBeginning = False

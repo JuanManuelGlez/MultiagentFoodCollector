@@ -8,6 +8,7 @@ class CollectorAgent(Agent):
         self.type = 2
         self.carryFood = False
         self.random.seed(12345)
+        # Nice to have self.goToFoodList = self.model.closestFoodDict[self.unique_id]
 
     def step(self):
         self.model.steps += 1
