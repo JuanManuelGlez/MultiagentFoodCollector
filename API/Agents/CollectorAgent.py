@@ -8,6 +8,7 @@ class CollectorAgent(Agent):
         self.type = 2
         self.carryFood = False
         self.random.seed(12345)
+        # Nice to have self.goToFoodList = self.model.closestFoodDict[self.unique_id]
 
     def step(self):
         self.model.steps += 1
@@ -82,11 +83,7 @@ class CollectorAgent(Agent):
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
         else:
-            (newX, newY) = self.lookAdjacentCellsDep(moveX, moveY)
-            if self.model.grid.is_cell_empty((newX, newY)):
-                self.model.grid.move_agent(self, (newX, newY))
-            else:
-                self.moveRandomly()
+            self.moveRandomly()
 
     # Look for the food coords closest to current position
     def getFoodCoords(self):
@@ -113,12 +110,7 @@ class CollectorAgent(Agent):
         if self.model.grid.is_cell_empty((moveX, moveY)):
             self.model.grid.move_agent(self, (moveX, moveY))
         else:
-            (newX, newY) = self.lookAdjacentCellsFood(moveX, moveY)
-            if (newX, newY) != None:
-                if self.model.grid.is_cell_empty((newX, newY)):
-                    self.model.grid.move_agent(self, (newX, newY))
-            else:
-                self.moveRandomly()
+            self.moveRandomly()
 
     # Found Food at position remove from global list once found
     def foundFoodAtPosition(self):
@@ -155,49 +147,3 @@ class CollectorAgent(Agent):
         if emptySteps:
             new_position = self.random.choice(emptySteps)
             self.model.grid.move_agent(self, new_position)
-
-    # Look for adjacent of adjacents to deposit
-    def lookAdjacentCellsDep(self, closeX, closeY):
-        possibleAdjacentClosest = self.model.grid.get_neighborhood(
-            (closeX, closeY), moore=True, include_center=False
-        )
-        possibleAdjacent = self.model.grid.get_neighborhood(
-            self.pos, moore=True, include_center=False
-        )
-        emptySteps = [
-            step for step in possibleAdjacent if self.model.grid.is_cell_empty(step)]
-        emptyCellsAdja = []
-        (depX, depY) = self.model.depositCoord
-        for cell in possibleAdjacentClosest:
-            (cellX, cellY) = cell
-            if cell in emptySteps and self.model.grid.is_cell_empty((cellX, cellY)):
-                emptyCellsAdja.append(math.sqrt((cellX - depX)
-                                 ** 2 + (cellY - depY) ** 2))
-        if emptyCellsAdja:
-            minIndexDistance = emptyCellsAdja.index(min(emptyCellsAdja))
-            return possibleAdjacentClosest[minIndexDistance]
-        else:
-            return None
-        
-    # Look for adjacent of adjacents of the closest food
-    def lookAdjacentCellsFood(self, closeX, closeY):
-        possibleAdjacentClosest = self.model.grid.get_neighborhood(
-            (closeX, closeY), moore=True, include_center=False
-        )
-        possibleAdjacent = self.model.grid.get_neighborhood(
-            self.pos, moore=True, include_center=False
-        )
-        emptySteps = [
-            step for step in possibleAdjacent if self.model.grid.is_cell_empty(step)]
-        emptyCellsAdja = []
-        (depX, depY) = self.model.depositCoord
-        for cell in possibleAdjacentClosest:
-            (cellX, cellY) = cell
-            if cell in emptySteps and self.model.grid.is_cell_empty((cellX, cellY)):
-                emptyCellsAdja.append(math.sqrt((cellX - depX)
-                                 ** 2 + (cellY - depY) ** 2))
-        if emptyCellsAdja:
-            minIndexDistance = emptyCellsAdja.index(min(emptyCellsAdja))
-            return self.model.foodPositions[minIndexDistance]
-        else:
-            return None

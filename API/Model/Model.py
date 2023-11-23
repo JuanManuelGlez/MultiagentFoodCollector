@@ -36,6 +36,7 @@ class foodColectionModel(Model):
 
         # Steps
         self.steps = 0
+        self.stepsToJson = 0
 
         # Random seed
         self.random.seed(12345)
@@ -56,7 +57,8 @@ class foodColectionModel(Model):
         # data collector
         self.datacollector = DataCollector(
             model_reporters={"Food": self.getGrid,
-                             "Agents": self.getAgents}
+                             "Agents": self.getAgents,
+                             "AllData": self.getAllData}
         )
 
         agentNumber = 0
@@ -87,7 +89,7 @@ class foodColectionModel(Model):
 
     def putFood(self):
         foodToGenerate = self.random.randint(self.minFood, self.maxFood)
-        if (self.currFood + foodToGenerate > self.totalFood):
+        if (self.currFood + foodToGenerate >= self.totalFood):
             foodToGenerate = self.totalFood - self.currFood
         emptyCoords = self.getEmptyCoords(foodToGenerate)
         for coord in emptyCoords:
@@ -121,6 +123,7 @@ class foodColectionModel(Model):
     # Steps
     def step(self):
         self.steps += 1
+        self.stepsToJson += 1
         self.checkToPutFood()
         if (len(self.foodPositions)) == 47 and not self.changedRoles:
             self.changedRoles = True
@@ -158,3 +161,47 @@ class foodColectionModel(Model):
                 new_agent = CollectorAgent(self.id, self)
                 self.schedule.add(new_agent)
                 self.grid.place_agent(new_agent, (x, y))
+
+    # get All the data for unity
+
+    def getAllData(self):
+        agentData = []
+        foodData = []
+        storageData = []
+
+        gridCopy = self.floor.copy()
+
+        # iterate over the grid copy and check for food
+        for i in range(len(gridCopy)):
+            for j in range(len(gridCopy[i])):
+                if gridCopy[i][j] == 1:
+                    foodData.append({"x": i, "z": j})
+                elif gridCopy[i][j] == -1:
+                    storageData.append(
+                        {"x": i, "z": j, "depositQuantity": self.depositQuantity})
+
+        # iterate over the agents and check for their positions
+        for agent in self.schedule.agents:
+            x, y = agent.pos
+            if agent.type == 1:
+                agentData.append({"x": x, "z": y, "type": 1,
+                                  "carryFood": False, "id": agent.unique_id})
+            else:
+                agentData.append({"x": x, "z": y, "type": 2,
+                                  "carryFood": agent.carryFood, "id": agent.unique_id})
+
+        return {
+            "Agents": agentData,
+            "Food": foodData,
+            "Storage": storageData,
+            "isChangedRoles": self.changedRoles,
+            "step": self.stepsToJson,
+        }
+        
+    # Assign food to agents (Nice to have)
+    def assignFood(self):
+        lenPartitions = len(self.foodPositions) // self.numAgents
+        for i in range(self.numAgents):
+            startIndex = i * lenPartitions
+            endIndex = startIndex + lenPartitions
+            self.closestFoodDict[i + self.numAgents + 1] = self.foodPositions[startIndex:endIndex]
