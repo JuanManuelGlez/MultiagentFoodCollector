@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Food
   - Agent
+  - AgentExplorer
+  - AgentCollector
   layers:
   - Default
   - TransparentFX

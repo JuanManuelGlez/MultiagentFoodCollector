@@ -5,14 +5,24 @@ using UnityEngine;
 public class AgentManager : MonoBehaviour
 {
     public Dictionary<int, List<Agent>> agentMap = new Dictionary<int, List<Agent>>();
+
     public GameObject AgentExplorerPrefab;
 
     public GameObject AgentCollectorPrefab;
 
+    [SerializeField]
+    public GameObject paramManagerHolder;
+
+    ParamManager paramManager;
 
     private int step = 0;
 
     private Dictionary<int, GameObject> agentObjects = new Dictionary<int, GameObject>();
+
+    void Awake()
+    {
+        paramManager = paramManagerHolder.GetComponent<ParamManager>();
+    }
 
     void Start()
     {
@@ -44,18 +54,29 @@ public class AgentManager : MonoBehaviour
                     if (agent.type == 1)
                     {
                         // Create explorer
-                        GameObject agentObject = Instantiate(AgentExplorerPrefab, new Vector3(agent.x, 0, agent.z), Quaternion.identity);
+                        GameObject agentObject = Instantiate(AgentExplorerPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                        agentObject.transform.localScale = new Vector3(10, 10, 10);
                         agentObject.name = "Agent" + agent.id;
-                        agentObject.tag = "Agent";
+                        agentObject.tag = "AgentExplorer";
 
                         agentObjects.Add(agent.id, agentObject);
                     }
                     else
                     {
+
+                        // delete the Explorer agent
+                        GameObject[] explorerAgents = GameObject.FindGameObjectsWithTag("AgentExplorer");
+
+                        foreach (GameObject explorerAgent in explorerAgents)
+                        {
+                            Destroy(explorerAgent);
+                        }
+
                         // Create collector
-                        GameObject agentObject = Instantiate(AgentCollectorPrefab, new Vector3(agent.x, 0, agent.z), Quaternion.identity);
+                        GameObject agentObject = Instantiate(AgentCollectorPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                        agentObject.transform.localScale = new Vector3(10, 10, 10);
                         agentObject.name = "Agent" + agent.id;
-                        agentObject.tag = "Agent";
+                        agentObject.tag = "AgentCollector";
 
                         agentObjects.Add(agent.id, agentObject);
                     }
@@ -64,12 +85,12 @@ public class AgentManager : MonoBehaviour
                 {
                     // Update the position of existing agent
                     GameObject agentObject = agentObjects[agent.id];
-                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x, 0, agent.z), 0.1f));
+                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), ParamManager.speed));
                 }
             }
 
             step++;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(ParamManager.speed);
         }
     }
 

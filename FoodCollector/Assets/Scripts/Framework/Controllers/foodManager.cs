@@ -8,7 +8,9 @@ public class FoodManager : MonoBehaviour
 {
     public Dictionary<int, List<Food>> foodMap = new Dictionary<int, List<Food>>();
     public GameObject foodPrefab;
+
     private int step = 0;
+
 
     void Start()
     {
@@ -25,7 +27,7 @@ public class FoodManager : MonoBehaviour
 
 
         // Generate food
-        StartCoroutine(GenerateFood()); 
+        StartCoroutine(GenerateFood());
     }
 
     IEnumerator GenerateFood()
@@ -44,12 +46,12 @@ public class FoodManager : MonoBehaviour
             for (int i = 0; i < foodList.Count; i++)
             {
                 Food food = foodList[i];
-                GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x, 0, food.z), Quaternion.identity);
+                GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x * ParamManager.distanceMultiplier, 0, food.z * ParamManager.distanceMultiplier), Quaternion.identity);
                 foodObject.name = "Food" + food.x + food.z;
                 foodObject.tag = "Food";
             }
             step++;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(ParamManager.speed);
         }
     }
 

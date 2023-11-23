@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638361819996203116
-    m_Hash: 1646665576
+      ticks: 638363499473921450
+    m_Hash: 105689471
   m_LockFileStatus:
     m_FilePath: C:/Users/diego/Documents/Tec/Semestre5/MultiAgentes/MultiagentFoodCollector/FoodCollector/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638361820475639346
-    m_Hash: 4179402546
+      ticks: 638363499473926508
+    m_Hash: 2446244939
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
