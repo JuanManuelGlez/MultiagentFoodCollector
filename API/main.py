@@ -25,9 +25,10 @@ class Server(BaseHTTPRequestHandler):
 
         for i in range(ITER):
             model.step()
+            if STEPS_TO_COMPLETE != 0:
+                break
             if model.depositQuantity == 47:
                 STEPS_TO_COMPLETE = i
-                break
 
         all_data = model.datacollector.get_model_vars_dataframe()
 
