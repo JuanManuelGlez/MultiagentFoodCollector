@@ -46,7 +46,8 @@ public class FoodManager : MonoBehaviour
             for (int i = 0; i < foodList.Count; i++)
             {
                 Food food = foodList[i];
-                GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x * ParamManager.distanceMultiplier, 0, food.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                // GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x * ParamManager.distanceMultiplier, 0, food.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x, 0, food.z), Quaternion.identity);
                 foodObject.name = "Food" + food.x + food.z;
                 foodObject.tag = "Food";
             }
