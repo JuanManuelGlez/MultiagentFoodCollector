@@ -13,15 +13,22 @@ public class mainCameraManager : MonoBehaviour
     private Vector3 cameraPositionSpace = new Vector3(20.06f, 18.57f, 9.65f);
     private Quaternion cameraRotationSpace = Quaternion.Euler(60.816f, -88.055f, 1.942f);
 
+    private Vector3 cameraPositionRightShift = new Vector3(8.65f, 3.4f, 28.14f);
+    private Quaternion cameraRightShift = Quaternion.Euler(-5.087f, -183.237f, -0.949f);
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(TransitionCameraView(camera.transform.position, camera.transform.rotation, cameraPositionSpace, cameraRotationSpace, 2.0f));
         }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) 
+        if (Input.GetKey(KeyCode.LeftShift)) 
         {
             StartCoroutine(TransitionCameraView(camera.transform.position, camera.transform.rotation, mainPositionShift, mainRotationShift, 2.0f));
+        }
+        if (Input.GetKey(KeyCode.RightShift))
+        {
+            StartCoroutine(TransitionCameraView(camera.transform.position, camera.transform.rotation, cameraPositionRightShift, cameraRightShift, 2.0f));
         }
     }
 
