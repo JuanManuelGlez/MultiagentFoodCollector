@@ -10,7 +10,7 @@ public class FoodManager : MonoBehaviour
     public Dictionary<int, List<Food>> foodMap = new Dictionary<int, List<Food>>();
 
     // Steps and changeRoles map
-    public Dictionary<int, bool> stepChangeRolesMap = new Dictionary<int, bool>();
+    public Dictionary<int, List<bool>> stepChangeRolesMap = new Dictionary<int, List<bool>>();
 
     public GameObject foodPrefab;
 
@@ -38,7 +38,7 @@ public class FoodManager : MonoBehaviour
     {
         while (step < foodMap.Count)
         {
-            if(stepChangeRolesMap[step])
+            if(stepChangeRolesMap[step][0])
             {
                 GameObject[] existingFood = GameObject.FindGameObjectsWithTag("Food");
                 foreach (GameObject foodObject in existingFood)
@@ -124,7 +124,7 @@ public class FoodManager : MonoBehaviour
         }
     }
 
-    public void OnDataLoaded(Dictionary<int, List<Food>> loadedData, Dictionary<int, bool> stepsData)
+    public void OnDataLoaded(Dictionary<int, List<Food>> loadedData, Dictionary<int, List<bool>> stepsData)
     {
         stepChangeRolesMap = stepsData;
         foodMap = loadedData;

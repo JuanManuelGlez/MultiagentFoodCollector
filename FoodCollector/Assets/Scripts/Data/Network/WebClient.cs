@@ -26,7 +26,9 @@ public class WebClient : MonoBehaviour
     public Dictionary<int, List<Storage>> storageMap = new Dictionary<int, List<Storage>>();
 
     // Steps and changeRoles map
-    public Dictionary<int, bool> stepChangeRolesMap = new Dictionary<int, bool>();
+    // [0] = CHANGE ROLES
+    // [1] = FOUND DEPOSIT
+    public Dictionary<int, List<bool>> stepChangeRolesMap = new Dictionary<int, List<bool>>();
     public int step = 0;
 
     public bool isChangedRoles = false;
@@ -118,7 +120,10 @@ public class WebClient : MonoBehaviour
                     storageData.Add(storage);
                 }
             }
-            stepChangeRolesMap[--resModel.step] = resModel.isChangedRoles;
+            List<bool> stepChangeRolesList = new List<bool>();
+            stepChangeRolesList.Add(resModel.isChangedRoles);
+            stepChangeRolesList.Add(resModel.foundDeposit);
+            stepChangeRolesMap[--resModel.step] = stepChangeRolesList;
             // Add the step as the key and JSON list object as values
             storageMap.Add(i, storageData);
         }
