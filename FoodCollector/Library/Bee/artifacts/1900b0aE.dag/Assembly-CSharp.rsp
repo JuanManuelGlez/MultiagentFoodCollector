@@ -359,8 +359,9 @@
 "Assets/Scripts/Data/Model/resModel.cs"
 "Assets/Scripts/Data/Model/storage.cs"
 "Assets/Scripts/Data/Network/WebClient.cs"
+"Assets/Scripts/Framework/Controllers/AgentCollectorScript.cs"
+"Assets/Scripts/Framework/Controllers/AgentExplorerScript.cs"
 "Assets/Scripts/Framework/Controllers/AgentManager.cs"
-"Assets/Scripts/Framework/Controllers/AgentScript.cs"
 "Assets/Scripts/Framework/Controllers/foodManager.cs"
 "Assets/Scripts/Framework/Controllers/paramManager.cs"
 -langversion:9.0

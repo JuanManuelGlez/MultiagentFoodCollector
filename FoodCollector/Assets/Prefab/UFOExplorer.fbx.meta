@@ -8,7 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert3
+    second: {fileID: 2100000, guid: e8007c4c13a12274cb4551deef5f5d57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong2
+    second: {fileID: 2100000, guid: 62fd28f02025c254a8d9709c67a52c5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong4
     second: {fileID: 2100000, guid: 4b4b088b9262bf54290b866d9db2946a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong7
+    second: {fileID: 2100000, guid: 6ae03d555629e5f4e8b74b3ced087390, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

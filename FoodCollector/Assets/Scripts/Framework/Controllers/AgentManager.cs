@@ -55,7 +55,7 @@ public class AgentManager : MonoBehaviour
                     {
                         // Create explorer
                         GameObject agentObject = Instantiate(AgentExplorerPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
-                        agentObject.transform.localScale = new Vector3(10, 10, 10);
+                        // agentObject.transform.localScale = new Vector3(10, 10, 10);
                         agentObject.name = "Agent" + agent.id;
                         agentObject.tag = "AgentExplorer";
 
@@ -74,7 +74,7 @@ public class AgentManager : MonoBehaviour
 
                         // Create collector
                         GameObject agentObject = Instantiate(AgentCollectorPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
-                        agentObject.transform.localScale = new Vector3(10, 10, 10);
+                        // agentObject.transform.localScale = new Vector3(10, 10, 10);
                         agentObject.name = "Agent" + agent.id;
                         agentObject.tag = "AgentCollector";
 
@@ -85,7 +85,7 @@ public class AgentManager : MonoBehaviour
                 {
                     // Update the position of existing agent
                     GameObject agentObject = agentObjects[agent.id];
-                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), ParamManager.speed));
+                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x * ParamManager.distanceMultiplier, 5, agent.z * ParamManager.distanceMultiplier), ParamManager.speed, agent));
                 }
             }
 
@@ -94,7 +94,7 @@ public class AgentManager : MonoBehaviour
         }
     }
 
-    IEnumerator MoveAgent(Transform agentTransform, Vector3 targetPosition, float duration)
+    IEnumerator MoveAgent(Transform agentTransform, Vector3 targetPosition, float duration, Agent agent)
     {
         float elapsedTime = 0f;
         Vector3 startingPos = agentTransform.position;
@@ -107,6 +107,16 @@ public class AgentManager : MonoBehaviour
         }
 
         agentTransform.position = targetPosition;
+
+        if (agent.type == 2)
+        {
+            GameObject cowObject = agentTransform.Find("Cow").gameObject;
+
+            if (cowObject != null)
+            {
+                cowObject.SetActive(agent.carryFood);
+            }
+        }
     }
 
     public void OnDataLoaded(Dictionary<int, List<Agent>> loadedData)

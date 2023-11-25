@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class AgentScript : MonoBehaviour
+public class AgentCollectorScript : MonoBehaviour
 {
     public IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
     {
