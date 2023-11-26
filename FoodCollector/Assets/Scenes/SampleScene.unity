@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AgentExplorerPrefab: {fileID: 919132149155446097, guid: 39ddb955342469b47a40e3d8a416df7d, type: 3}
-  AgentCollectorPrefab: {fileID: 5332807202314804293, guid: cbf397611a63c614e9313b46ec1db8fa, type: 3}
+  AgentCollectorPrefab: {fileID: 919132149155446097, guid: 7a5da5478ca358d4fa113fa5ec34f800, type: 3}
   paramManagerHolder: {fileID: 1029990865}
 --- !u!1001 &9017879684112334228
 PrefabInstance:
