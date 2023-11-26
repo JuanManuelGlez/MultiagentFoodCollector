@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638363594300000000
+      ticks: 638365473030000000
     m_Hash: 1646665576
   m_LockFileStatus:
     m_FilePath: /Users/Guty/Library/CloudStorage/OneDrive-Personal/Escuela/5toSem_ITC/SistemasMultiagentes/Reto/MultiagentFoodCollector/FoodCollector/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638363594300000000
+      ticks: 638365473030000000
     m_Hash: 4179402546
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}

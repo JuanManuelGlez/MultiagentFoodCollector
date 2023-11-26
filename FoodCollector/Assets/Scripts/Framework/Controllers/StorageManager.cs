@@ -23,6 +23,7 @@ public class StorageManager : MonoBehaviour
 
     private int numberCows;
     private bool instantiateBlackHole;
+    public int pulledCowsBlackHole = 0;
 
     private Vector3 depositPosition;
     // Start is called before the first frame update
@@ -72,6 +73,7 @@ public class StorageManager : MonoBehaviour
                     if (storage.depositQuantity > 0)
                     {
                         cows = storage.depositQuantity;
+                        StartCoroutine(setNumberCows(cows));
                     }
                 }
                 if (numberCows < cows)
@@ -90,6 +92,17 @@ public class StorageManager : MonoBehaviour
     {
         storageMap = loadedData;
         stepChangeRolesMap = stepsData;
+    }
+
+    IEnumerator setNumberCows(int cowsCounter)
+    {
+        pulledCowsBlackHole = cowsCounter;
+        yield return new WaitForSeconds(ParamManager.speed);
+    }
+
+    public int getNumberCows()
+    {
+        return pulledCowsBlackHole;
     }
 
     IEnumerator generateBlackHole(Vector3 positionBlackHole)
