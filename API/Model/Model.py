@@ -198,11 +198,12 @@ class foodColectionModel(Model):
             "step": self.stepsToJson,
             "foundDeposit": self.foundDeposit
         }
-        
+
     # Assign food to agents (Nice to have)
     def assignFood(self):
         lenPartitions = len(self.foodPositions) // self.numAgents
         for i in range(self.numAgents):
             startIndex = i * lenPartitions
             endIndex = startIndex + lenPartitions
-            self.closestFoodDict[i + self.numAgents + 1] = self.foodPositions[startIndex:endIndex]
+            self.closestFoodDict[i + self.numAgents +
+                                 1] = self.foodPositions[startIndex:endIndex]

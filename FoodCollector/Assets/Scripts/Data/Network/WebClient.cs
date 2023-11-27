@@ -31,9 +31,16 @@ public class WebClient : MonoBehaviour
     public Dictionary<int, List<bool>> stepChangeRolesMap = new Dictionary<int, List<bool>>();
     public int step = 0;
 
+    public static int stepCounter { get; private set; }
+
     public bool isChangedRoles = false;
 
     private DataModel resData;
+
+    void Awake()
+    {
+        stepCounter = 0;
+    }
 
     IEnumerator GetData()
     {
@@ -126,8 +133,10 @@ public class WebClient : MonoBehaviour
             stepChangeRolesMap[--resModel.step] = stepChangeRolesList;
             // Add the step as the key and JSON list object as values
             storageMap.Add(i, storageData);
+
         }
 
+        stepCounter = resData.data.Count;
         foodManager.foodMap = foodMap;
         agentManager.agentMap = agentMap;
         storageManager.storageMap = storageMap;

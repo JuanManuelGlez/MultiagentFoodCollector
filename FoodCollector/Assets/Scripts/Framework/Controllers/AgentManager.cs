@@ -65,7 +65,6 @@ public class AgentManager : MonoBehaviour
                     }
                     else
                     {
-
                         // delete the Explorer agent
                         GameObject[] explorerAgents = GameObject.FindGameObjectsWithTag("AgentExplorer");
 
