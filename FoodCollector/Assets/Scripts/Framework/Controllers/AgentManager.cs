@@ -56,8 +56,8 @@ public class AgentManager : MonoBehaviour
                     if (agent.type == 1)
                     {
                         // Create explorer
-                        GameObject agentObject = Instantiate(AgentExplorerPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, levitate, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
-                        agentObject.transform.localScale = new Vector3(7, 7, 7);
+                        GameObject agentObject = Instantiate(AgentExplorerPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 2.8f, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                        agentObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         agentObject.name = "Agent" + agent.id;
                         agentObject.tag = "AgentExplorer";
 
@@ -75,8 +75,8 @@ public class AgentManager : MonoBehaviour
                         }
 
                         // Create collector
-                        GameObject agentObject = Instantiate(AgentCollectorPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, levitate, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
-                        agentObject.transform.localScale = new Vector3(5, 5, 5);
+                        GameObject agentObject = Instantiate(AgentCollectorPrefab, new Vector3(agent.x * ParamManager.distanceMultiplier, 2.8f, agent.z * ParamManager.distanceMultiplier), Quaternion.identity);
+                        agentObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         agentObject.name = "Agent" + agent.id;
                         agentObject.tag = "AgentCollector";
 
@@ -87,7 +87,7 @@ public class AgentManager : MonoBehaviour
                 {
                     // Update the position of existing agent
                     GameObject agentObject = agentObjects[agent.id];
-                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x * ParamManager.distanceMultiplier, 1, agent.z * ParamManager.distanceMultiplier), ParamManager.speed));
+                    StartCoroutine(MoveAgent(agentObject.transform, new Vector3(agent.x * ParamManager.distanceMultiplier, 2.8f, agent.z * ParamManager.distanceMultiplier), ParamManager.speed, agent));
                 }
             }
 
@@ -96,26 +96,29 @@ public class AgentManager : MonoBehaviour
         }
     }
 
-    IEnumerator MoveAgent(Transform agentTransform, Vector3 targetPosition, float duration)
+    IEnumerator MoveAgent(Transform agentTransform, Vector3 targetPosition, float duration, Agent agent)
     {
         float elapsedTime = 0f;
         Vector3 startingPos = agentTransform.position;
 
-        // Interpolation with value of 1
-        Vector3 targetPositionWithConstantY = new Vector3(targetPosition.x, 1, targetPosition.z);
-
         while (elapsedTime < duration)
         {
-            Vector3 intermediatePos = Vector3.Lerp(startingPos, targetPositionWithConstantY, elapsedTime / duration);
-            intermediatePos.y = levitate;
-            agentTransform.position = intermediatePos;
+            agentTransform.position = Vector3.Lerp(startingPos, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Get the movement in y again
-        targetPositionWithConstantY.y = levitate;
-        agentTransform.position = targetPositionWithConstantY;
+        agentTransform.position = targetPosition;
+
+        if (agent.type == 2)
+        {
+            GameObject cowObject = agentTransform.Find("Cow").gameObject;
+
+            if (cowObject != null)
+            {
+                cowObject.SetActive(agent.carryFood);
+            }
+        }
     }
 
     public void OnDataLoaded(Dictionary<int, List<Agent>> loadedData)

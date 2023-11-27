@@ -9,14 +9,14 @@ public class StorageManager : MonoBehaviour
     // Storage map
     public Dictionary<int, List<Storage>> storageMap = new Dictionary<int, List<Storage>>();
 
-     // Steps and changeRoles map
+    // Steps and changeRoles map
     public Dictionary<int, List<bool>> stepChangeRolesMap = new Dictionary<int, List<bool>>();
 
     public GameObject foodPrefab;
 
     public GameObject blackHole;
 
-    public float verticalOffsetCows = 3.5f;
+    public float verticalOffsetCows = 2.5f;
 
     private int step;
     private bool isChangedRoles;
@@ -51,7 +51,7 @@ public class StorageManager : MonoBehaviour
         while (step < storageMap.Count)
         {
             // Instantiate at position the black hole
-            if(stepChangeRolesMap[step][1] && !instantiateBlackHole)
+            if (stepChangeRolesMap[step][1] && !instantiateBlackHole)
             {
                 Vector3 positionBlackHole;
 
@@ -63,7 +63,7 @@ public class StorageManager : MonoBehaviour
                 instantiateBlackHole = true;
             }
 
-            if(stepChangeRolesMap[step][0])
+            if (stepChangeRolesMap[step][0])
             {
                 int cows = 0;
                 List<Storage> storageList = storageMap[step];
@@ -113,7 +113,7 @@ public class StorageManager : MonoBehaviour
 
     IEnumerator stackCows(int cows, int startNumber)
     {
-        for (int i = startNumber; i <= cows; i++)
+        for (int i = startNumber; i < cows; i++)
         {
             Debug.Log("Number of cows: " + numberCows);
             Vector3 spawnPosition = depositPosition + new Vector3(0f, verticalOffsetCows, 0f);
@@ -140,7 +140,7 @@ public class StorageManager : MonoBehaviour
             foodObject.name = "Food" + i;
             foodObject.tag = "Food";
 
-            
+
             yield return new WaitForSeconds(ParamManager.speed);
         }
     }
