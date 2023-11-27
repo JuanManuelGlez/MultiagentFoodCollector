@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class SingularityCore : MonoBehaviour
 {

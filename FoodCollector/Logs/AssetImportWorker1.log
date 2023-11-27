@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Using pre-set license
 Built from '2022.3/release' branch; Version is '2022.3.12f1 (4fe6e059c7ef) revision 5236448'; Using compiler version '192829333'; Build Type 'Release'
 OS: 'Windows 11  (10.0.22631) 64bit Core' Language: 'en' Physical Memory: 32386 MB
@@ -5,12 +6,29 @@ BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, I
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\2022.3.12f1\Editor\Unity.exe
+=======
+Unity Editor version:    2022.3.12f1 (4fe6e059c7ef)
+Branch:                  2022.3/release
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 14.1.1 (Build 23B81)
+Darwin version:          23.1.0
+Architecture:            x86_64
+Running under Rosetta:   NO
+Available memory:        16384 MB
+Using pre-set license
+Pro License: YES
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/MacOS/Unity
+>>>>>>> develop
 -adb2
 -batchMode
 -noUpm
 -name
 AssetImportWorker1
 -projectPath
+<<<<<<< HEAD
 C:/Users/diego/Documents/Tec/Semestre5/MultiAgentes/MultiagentFoodCollector/FoodCollector
 -logFile
 Logs/AssetImportWorker1.log
@@ -18,6 +36,15 @@ Logs/AssetImportWorker1.log
 54792
 Successfully changed project path to: C:/Users/diego/Documents/Tec/Semestre5/MultiAgentes/MultiagentFoodCollector/FoodCollector
 C:/Users/diego/Documents/Tec/Semestre5/MultiAgentes/MultiagentFoodCollector/FoodCollector
+=======
+/Users/Guty/Library/CloudStorage/OneDrive-Personal/Escuela/5toSem_ITC/SistemasMultiagentes/Reto/MultiagentFoodCollector/FoodCollector
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+53199
+Successfully changed project path to: /Users/Guty/Library/CloudStorage/OneDrive-Personal/Escuela/5toSem_ITC/SistemasMultiagentes/Reto/MultiagentFoodCollector/FoodCollector
+/Users/Guty/Library/CloudStorage/OneDrive-Personal/Escuela/5toSem_ITC/SistemasMultiagentes/Reto/MultiagentFoodCollector/FoodCollector
+>>>>>>> develop
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -49,6 +76,7 @@ C:/Users/diego/Documents/Tec/Semestre5/MultiAgentes/MultiagentFoodCollector/Food
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
+<<<<<<< HEAD
 Player connection [31696] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2103739924 [EditorId] 2103739924 [Version] 1048832 [Id] WindowsEditor(7,Void) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
 Player connection [31696] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2103739924 [EditorId] 2103739924 [Version] 1048832 [Id] WindowsEditor(7,Void) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
@@ -83,10 +111,46 @@ Mono: successfully reloaded assembly
 - Finished resetting the current domain, in  0.195 seconds
 Domain Reload Profiling: 454ms
 	BeginReloadAssembly (80ms)
+=======
+Player connection [140704509999936] Host "[IP] 192.168.100.155 [Port] 0 [Flags] 2 [Guid] 3712907160 [EditorId] 3712907160 [Version] 1048832 [Id] OSXEditor(0,MacBook-Pro-de-Guty.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [140704509999936] Host "[IP] 192.168.100.155 [Port] 0 [Flags] 2 [Guid] 3712907160 [EditorId] 3712907160 [Version] 1048832 [Id] OSXEditor(0,MacBook-Pro-de-Guty.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 7 workers.
+Refreshing native plugins compatible for Editor in 36.22 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.12f1 (4fe6e059c7ef)
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/Guty/Library/CloudStorage/OneDrive-Personal/Escuela/5toSem_ITC/SistemasMultiagentes/Reto/MultiagentFoodCollector/FoodCollector/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Color LCD preferred device: Intel(R) Iris(TM) Plus Graphics (low power)
+Metal devices available: 1
+0: Intel(R) Iris(TM) Plus Graphics (low power)
+Using device Intel(R) Iris(TM) Plus Graphics (low power)
+Initializing Metal device caps: Intel(R) Iris(TM) Plus Graphics
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56546
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.12f1/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: /Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.008454 seconds.
+- Loaded All Assemblies, in  1.010 seconds
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.662 seconds
+Domain Reload Profiling: 1672ms
+	BeginReloadAssembly (309ms)
+>>>>>>> develop
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
+<<<<<<< HEAD
 		CreateAndSetChildDomain (1ms)
 	RebuildCommonClasses (24ms)
 	RebuildNativeTypeToScriptingClass (8ms)
@@ -110,6 +174,31 @@ Domain Reload Profiling: 454ms
 			BeforeProcessingInitializeOnLoad (2ms)
 			ProcessInitializeOnLoadAttributes (98ms)
 			ProcessInitializeOnLoadMethodAttributes (40ms)
+=======
+		CreateAndSetChildDomain (2ms)
+	RebuildCommonClasses (106ms)
+	RebuildNativeTypeToScriptingClass (32ms)
+	initialDomainReloadingComplete (128ms)
+	LoadAllAssembliesAndSetupDomain (433ms)
+		LoadAssemblies (310ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (427ms)
+			TypeCache.Refresh (423ms)
+				TypeCache.ScanAssembly (394ms)
+			ScanForSourceGeneratedMonoScriptInfo (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (663ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (498ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (20ms)
+			SetLoadedEditorAssemblies (15ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (5ms)
+			ProcessInitializeOnLoadAttributes (345ms)
+			ProcessInitializeOnLoadMethodAttributes (114ms)
+>>>>>>> develop
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -117,17 +206,24 @@ Domain Reload Profiling: 454ms
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
+<<<<<<< HEAD
 Symbol file data-0000016BF6ACD3F0 doesn't match image C:\Users\diego\Documents\Tec\Semestre5\MultiAgentes\MultiagentFoodCollector\FoodCollector\Library\ScriptAssemblies\Assembly-CSharp.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 - Loaded All Assemblies, in  0.463 seconds
 Refreshing native plugins compatible for Editor in 2.47 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
+=======
+- Loaded All Assemblies, in  1.775 seconds
+Refreshing native plugins compatible for Editor in 4.86 ms, found 2 plugins.
+Native extension for OSXStandalone target not found
+>>>>>>> develop
 Native extension for WebGL target not found
 Package Manager log level set to [2]
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
+<<<<<<< HEAD
 - Finished resetting the current domain, in  0.380 seconds
 Domain Reload Profiling: 841ms
 	BeginReloadAssembly (122ms)
@@ -179,19 +275,120 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+=======
+- Finished resetting the current domain, in  1.544 seconds
+Domain Reload Profiling: 3320ms
+	BeginReloadAssembly (350ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (14ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (81ms)
+	RebuildCommonClasses (105ms)
+	RebuildNativeTypeToScriptingClass (33ms)
+	initialDomainReloadingComplete (96ms)
+	LoadAllAssembliesAndSetupDomain (1190ms)
+		LoadAssemblies (843ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (505ms)
+			TypeCache.Refresh (449ms)
+				TypeCache.ScanAssembly (414ms)
+			ScanForSourceGeneratedMonoScriptInfo (34ms)
+			ResolveRequiredComponents (13ms)
+	FinalizeReload (1545ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1100ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (13ms)
+			SetLoadedEditorAssemblies (11ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (125ms)
+			ProcessInitializeOnLoadAttributes (888ms)
+			ProcessInitializeOnLoadMethodAttributes (59ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (16ms)
+Launching external process: /Applications/Unity/Hub/Editor/2022.3.12f1/Unity.app/Contents/Tools/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.16 seconds
+Refreshing native plugins compatible for Editor in 4.30 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3101 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 32 unused Assets / (51.1 KB). Loaded Objects now: 3567.
+Memory consumption went from 127.3 MB to 127.3 MB.
+Total: 5.866696 ms (FindLiveObjects: 0.363142 ms CreateObjectMapping: 0.327266 ms MarkObjects: 4.988770 ms  DeleteObjects: 0.185773 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: 3918e3fc78b5a79bad01e8451be0beb8 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+>>>>>>> develop
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
+<<<<<<< HEAD
   Time since last request: 328128.052534 seconds.
   path: Assets/Prefab/UFOCollector.fbx
   artifactKey: Guid(7a5da5478ca358d4fa113fa5ec34f800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Prefab/UFOCollector.fbx using Guid(7a5da5478ca358d4fa113fa5ec34f800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70a381cc0bdb2b5c8ee34625913b844a') in 0.130877 seconds
+=======
+  Time since last request: 21952.639172 seconds.
+  path: Assets/VertexColorFarmAnimals/Models/CowBlW.fbx
+  artifactKey: Guid(33bee4529afa2d740bfcc71a4c9f1f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/VertexColorFarmAnimals/Models/CowBlW.fbx using Guid(33bee4529afa2d740bfcc71a4c9f1f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72eedf9690b2e9b8648e197a301a769d') in 0.281320 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 3.963429 seconds.
+  path: Assets/Prefab/PlaneX.prefab
+  artifactKey: Guid(d5e9f80fb44d64f0c8c48f54bb9e47df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/PlaneX.prefab using Guid(d5e9f80fb44d64f0c8c48f54bb9e47df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01468048bfd916e6a2ff619f225a462d') in 0.018080 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 67
+========================================================================
+Received Import Request.
+  Time since last request: 0.000108 seconds.
+  path: Assets/Prefab/PlaneXParent.prefab
+  artifactKey: Guid(eacd884edb7684f879be4a30427cf912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/PlaneXParent.prefab using Guid(eacd884edb7684f879be4a30427cf912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a1a39216b77d0f7523006d23eaf9656') in 0.018562 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 178
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/Prefab/redMat.mat
+  artifactKey: Guid(b549d83245b4de044ae18ef762a4458e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/redMat.mat using Guid(b549d83245b4de044ae18ef762a4458e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d16eb72a5342dae24b5c5a1f358a446') in 0.068985 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000144 seconds.
+  path: Assets/Prefab/TempFood.prefab
+  artifactKey: Guid(7dd39f7ebb38ef445ae57e2ee1be953f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/TempFood.prefab using Guid(7dd39f7ebb38ef445ae57e2ee1be953f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4e4861a9d5995a628a831992a5ee717') in 0.012881 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Import Request.
+  Time since last request: 0.000164 seconds.
+  path: Assets/Prefab/UFO.fbx
+  artifactKey: Guid(39ddb955342469b47a40e3d8a416df7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/UFO.fbx using Guid(39ddb955342469b47a40e3d8a416df7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc8aaf0dff93ac06e85aa89fcb169739') in 0.816230 seconds
+>>>>>>> develop
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 23
 ========================================================================
 Received Prepare
+<<<<<<< HEAD
 Begin MonoManager ReloadAssembly
 Symbol file data-0000016C218D0230 doesn't match image C:\Users\diego\Documents\Tec\Semestre5\MultiAgentes\MultiagentFoodCollector\FoodCollector\Library\ScriptAssemblies\Assembly-CSharp.dll
 Symbol file LoadedFromMemory is not a mono symbol file
@@ -243,18 +440,31 @@ Unloading 3084 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 23 unused Assets / (31.0 KB). Loaded Objects now: 3606.
 Memory consumption went from 129.3 MB to 129.3 MB.
 Total: 2.399400 ms (FindLiveObjects: 0.175200 ms CreateObjectMapping: 0.054900 ms MarkObjects: 2.130100 ms  DeleteObjects: 0.038400 ms)
+=======
+Refreshing native plugins compatible for Editor in 10.26 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1 unused Assets / (0.8 KB). Loaded Objects now: 3613.
+Memory consumption went from 80.6 MB to 80.6 MB.
+Total: 15.988905 ms (FindLiveObjects: 0.364412 ms CreateObjectMapping: 0.352754 ms MarkObjects: 15.162878 ms  DeleteObjects: 0.107148 ms)
+>>>>>>> develop
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+<<<<<<< HEAD
   custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+=======
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+>>>>>>> develop
   custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+<<<<<<< HEAD
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
@@ -335,3 +545,14 @@ Received Import Request.
 Start importing Assets/VertexColorFarmAnimals/Prefabs/CowBlW.prefab using Guid(9ec060093457ad84ca2733cb15c2c41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bdda1016d522658db752cfa9ca3ac56') in 0.116890 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 10
+=======
+  custom:AudioImporter_EditorPlatform: 3918e3fc78b5a79bad01e8451be0beb8 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 89, details: Operation aborted.
+AssetImportWorker is now disconnected from the server
+Process exiting
+>>>>>>> develop
