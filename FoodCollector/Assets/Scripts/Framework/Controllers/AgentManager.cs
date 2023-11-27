@@ -113,10 +113,18 @@ public class AgentManager : MonoBehaviour
         {
             GameObject cowObject = agentTransform.Find("Cow").gameObject;
 
-            if (cowObject != null)
+            GameObject lightObject = agentTransform.Find("Light").gameObject;
+
+
+            if (cowObject != null && lightObject != null)
             {
+                // Debug statement
+                Debug.Log("UFO Light Found");
+
                 cowObject.SetActive(agent.carryFood);
+                lightObject.SetActive(agent.carryFood);
             }
+
         }
     }
 

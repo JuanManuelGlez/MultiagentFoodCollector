@@ -16,7 +16,7 @@ public class StorageManager : MonoBehaviour
 
     public GameObject blackHole;
 
-    public float verticalOffsetCows = 2.5f;
+    public float verticalOffsetCows = 2f;
 
     private int step;
     private bool isChangedRoles;
@@ -118,8 +118,9 @@ public class StorageManager : MonoBehaviour
             Debug.Log("Number of cows: " + numberCows);
             Vector3 spawnPosition = depositPosition + new Vector3(0f, verticalOffsetCows, 0f);
             Quaternion rotation = foodPrefab.transform.rotation;
-            rotation *= Quaternion.Euler(0f, 0f, 90f);
+            rotation *= Quaternion.Euler(randomRotation(), randomRotation(), randomRotation());
             GameObject foodObject = Instantiate(foodPrefab, spawnPosition, rotation);
+            foodObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             // Attach a Collider component
             foodObject.AddComponent<BoxCollider>();
@@ -143,5 +144,10 @@ public class StorageManager : MonoBehaviour
 
             yield return new WaitForSeconds(ParamManager.speed);
         }
+    }
+
+    private float randomRotation()
+    {
+        return UnityEngine.Random.Range(0f, 360f);
     }
 }

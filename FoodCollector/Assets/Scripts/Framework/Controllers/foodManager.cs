@@ -16,6 +16,8 @@ public class FoodManager : MonoBehaviour
 
     private int step = 0;
 
+    private float rotation = 0.0f;
+
 
     void Start()
     {
@@ -38,7 +40,7 @@ public class FoodManager : MonoBehaviour
     {
         while (step < foodMap.Count)
         {
-            if(stepChangeRolesMap[step][0])
+            if (stepChangeRolesMap[step][0])
             {
                 GameObject[] existingFood = GameObject.FindGameObjectsWithTag("Food");
                 foreach (GameObject foodObject in existingFood)
@@ -66,17 +68,19 @@ public class FoodManager : MonoBehaviour
                 for (int i = 0; i < foodList.Count; i++)
                 {
                     Food food = foodList[i];
-                    // GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x * ParamManager.distanceMultiplier, 0, food.z * ParamManager.distanceMultiplier), Quaternion.identity);
+
+
+
                     GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x, 0, food.z), Quaternion.identity);
-                    if(food.x == 0 && !(food.z == 0))
+                    if (food.x == 0 && !(food.z == 0))
                     {
                         foodObject.name = "Food" + 100 * food.z;
                     }
-                    else if(food.z == 0  && !(food.x < 0))
+                    else if (food.z == 0 && !(food.x < 0))
                     {
                         foodObject.name = "Food" + food.x * 100;
                     }
-                    else if(food.z == 0 && (food.x == 0))
+                    else if (food.z == 0 && (food.x == 0))
                     {
                         foodObject.name = "Food" + 100 * i;
                     }
@@ -98,17 +102,19 @@ public class FoodManager : MonoBehaviour
                 for (int i = 0; i < foodList.Count; i++)
                 {
                     Food food = foodList[i];
-                    // GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x * ParamManager.distanceMultiplier, 0, food.z * ParamManager.distanceMultiplier), Quaternion.identity);
+
+
+
                     GameObject foodObject = Instantiate(foodPrefab, new Vector3(food.x, 0, food.z), Quaternion.identity);
-                    if(food.x == 0 && !(food.z == 0))
+                    if (food.x == 0 && !(food.z == 0))
                     {
                         foodObject.name = "Food" + 100 * food.z;
                     }
-                    else if(food.z == 0  && !(food.x < 0))
+                    else if (food.z == 0 && !(food.x < 0))
                     {
                         foodObject.name = "Food" + food.x * 100;
                     }
-                    else if(food.z == 0 && (food.x == 0))
+                    else if (food.z == 0 && (food.x == 0))
                     {
                         foodObject.name = "Food" + 100 * i;
                     }
