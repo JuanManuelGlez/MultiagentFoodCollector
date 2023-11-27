@@ -13,4 +13,6 @@ public class ResModel
     public bool isChangedRoles;
 
     public int step;
+
+    public bool foundDeposit;
 }

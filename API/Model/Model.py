@@ -196,6 +196,7 @@ class foodColectionModel(Model):
             "Storage": storageData,
             "isChangedRoles": self.changedRoles,
             "step": self.stepsToJson,
+            "foundDeposit": self.foundDeposit
         }
         
     # Assign food to agents (Nice to have)
