@@ -40,10 +40,14 @@ class ExplorerAgent(Agent):
                     result = self.positionAgents()
                     if not result == None:
                         moveX, moveY = result
-                        if self.model.grid.is_cell_empty((moveX, moveY)):
-                            self.model.grid.move_agent(self, (moveX, moveY))
+                        if (self.model.numAgents == 5):
+                            if self.model.grid.is_cell_empty((moveX, moveY)):
+                                self.model.grid.move_agent(self, (moveX, moveY))
                         else:
-                            self.moveRandomly()
+                            if self.model.grid.is_cell_empty((moveX, moveY)):
+                                self.model.grid.move_agent(self, (moveX, moveY))
+                            else:
+                                self.moveRandomly()
                     else:
                         self.moveRandomly()
 
@@ -116,8 +120,6 @@ class ExplorerAgent(Agent):
         neighborCells = self.getRandomNeighborhood()
         minIndexDistance = -1
         for i in range(len(self.model.zonesDict)):
-            print("AGENT, GOAL:", self.unique_id, self.goalPosition)
-            print("AGENT, end:", self.unique_id, self.endPosition)
             if self.unique_id == i:
                 self.goalPosition = self.model.zonesDict[i][0][0], self.model.zonesDict[i][0][1]
                 if ( (len(self.model.zonesDict[i]))/ (len(self.model.floor)) % 2 == 0) or (self.model.zonesDict[i][len(
