@@ -20,8 +20,10 @@ class Server(BaseHTTPRequestHandler):
         TOTAL_FOOD = 47
         ITER = 1500
         STEPS_TO_COMPLETE = 0
+        STARTING_STEP = 5
 
-        model = foodColectionModel(WIDTH, HEIGHT, NUM_AGENTS, TOTAL_FOOD)
+        model = foodColectionModel(
+            WIDTH, HEIGHT, NUM_AGENTS, TOTAL_FOOD, STARTING_STEP)
 
         for i in range(ITER):
             model.step()

@@ -25,7 +25,7 @@ public class stepManager : MonoBehaviour
         while (true)
         {
             yield return StartCoroutine(updateText());
-            yield return new WaitForSeconds(ParamManager.speed - 0.015f);
+            yield return new WaitForSeconds(ParamManager.speed);
         }
     }
 
