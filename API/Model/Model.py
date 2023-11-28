@@ -13,11 +13,12 @@ from Agents.ExplorerAgent import ExplorerAgent
 
 
 class foodColectionModel(Model):
-    def __init__(self, width, height, numAgents, totalFood):
+    def __init__(self, width, height, numAgents, totalFood, startingStep):
         self.numAgents = numAgents
         self.totalFood = totalFood
         self.width = width
         self.height = height
+        self.startingStep = startingStep
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(self.width, self.height, torus=False)
 
@@ -63,15 +64,28 @@ class foodColectionModel(Model):
 
         agentNumber = 0
 
-        while (agentNumber < self.numAgents):
-            x = self.random.randint(0, self.width - 1)
-            y = self.random.randint(0, self.height - 1)
+        # while (agentNumber < self.numAgents):
+        # x = self.random.randint(0, self.width - 1)
+        # y = self.random.randint(0, self.height - 1)
+        # if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
+        #     a = ExplorerAgent(self.id, self)
+        #     self.schedule.add(a)
+        #     self.grid.place_agent(a, (x, y))
+        #     self.id += 1
+        #     agentNumber += 1
+
+        xstarting = 0
+
+        for i in range(self.numAgents):
+            x = xstarting
+            y = 0
             if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
                 a = ExplorerAgent(self.id, self)
                 self.schedule.add(a)
                 self.grid.place_agent(a, (x, y))
                 self.id += 1
                 agentNumber += 1
+            xstarting += 2
 
         # Put deposit
         self.initDeposit()

@@ -17,20 +17,22 @@ class ExplorerAgent(Agent):
         self.moveBeginning = False
 
     def step(self):
-        (x, y) = self.pos
-        # Move until all food is generated and agent not positioned
-        if not self.isPositioned and self.model.positionZone < self.model.numAgents:
-            if self.model.floor[x][y] == 1:
-                if not self.foodIsAdded(x, y):
-                    self.model.foodPositions.append((x, y))
+        if (self.model.steps > self.model.startingStep):
+            (x, y) = self.pos
 
-            elif self.model.floor[x][y] == -1:
-                self.model.foundDeposit = True
-                self.model.depositCoord = (x, y)
+            # Move until all food is generated and agent not positioned
+            if not self.isPositioned and self.model.positionZone < self.model.numAgents:
+                if self.model.floor[x][y] == 1:
+                    if not self.foodIsAdded(x, y):
+                        self.model.foodPositions.append((x, y))
 
-            elif self.pos == self.goalPosition:
-                self.isPositioned = True
-                self.model.positionZone += 1
+                elif self.model.floor[x][y] == -1:
+                    self.model.foundDeposit = True
+                    self.model.depositCoord = (x, y)
+
+                elif self.pos == self.goalPosition:
+                    self.isPositioned = True
+                    self.model.positionZone += 1
 
             if not self.isPositioned:
                 if self.pos == self.goalPosition:
@@ -51,16 +53,16 @@ class ExplorerAgent(Agent):
                     else:
                         self.moveRandomly()
 
-        # Move until all food is generated and if agents are in position explore food
-        elif self.model.positionZone == self.model.numAgents:
-            if self.model.floor[x][y] == 1:
-                if not self.foodIsAdded(x, y):
-                    self.model.foodPositions.append((x, y))
+            # Move until all food is generated and if agents are in position explore food
+            elif self.model.positionZone == self.model.numAgents:
+                if self.model.floor[x][y] == 1:
+                    if not self.foodIsAdded(x, y):
+                        self.model.foodPositions.append((x, y))
 
-            elif self.model.floor[x][y] == -1:
-                self.model.foundDeposit = True
-                self.model.depositCoord = (x, y)
-            self.moveInPattern()
+                elif self.model.floor[x][y] == -1:
+                    self.model.foundDeposit = True
+                    self.model.depositCoord = (x, y)
+                self.moveInPattern()
 
     # Search deposit
     def searchDeposit(self):
@@ -175,7 +177,7 @@ class ExplorerAgent(Agent):
     # Helper to get neighborhood cells
     def getRandomNeighborhood(self):
         return self.model.grid.get_neighborhood(self.pos, moore=True, include_center=False)
-    
+
     # Helper to go to beginning
     def moveToBeginning(self):
         (x, y) = self.pos
