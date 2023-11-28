@@ -59,9 +59,5 @@ public class stepManager : MonoBehaviour
                 yield return null;
             }
         }
-        else
-        {
-            Debug.LogError(" Text component is not assigned!");
-        }
     }
 }

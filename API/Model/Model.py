@@ -64,8 +64,8 @@ class foodColectionModel(Model):
         agentNumber = 0
 
         while (agentNumber < self.numAgents):
-            x = self.random.randint(0, self.width -1)
-            y = self.random.randint(0, self.height -1)
+            x = self.random.randint(0, self.width - 1)
+            y = self.random.randint(0, self.height - 1)
             if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
                 a = ExplorerAgent(self.id, self)
                 self.schedule.add(a)
@@ -97,7 +97,9 @@ class foodColectionModel(Model):
             self.currFood += 1
 
     def checkToPutFood(self):
-        if ((self.steps + 1) % 5 == 0):
+        if (self.steps - 1 == 0):
+            self.putFood()
+        elif ((self.steps + 1) % 5 == 0):
             self.putFood()
 
     # get the grid
