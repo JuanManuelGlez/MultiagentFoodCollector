@@ -104,6 +104,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -450435477336378351, guid: 39ddb955342469b47a40e3d8a416df7d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -450435477336378351, guid: 39ddb955342469b47a40e3d8a416df7d, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 39ddb955342469b47a40e3d8a416df7d, type: 3}
       propertyPath: m_Name
       value: UFOExplorer
