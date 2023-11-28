@@ -97,7 +97,9 @@ class foodColectionModel(Model):
             self.currFood += 1
 
     def checkToPutFood(self):
-        if ((self.steps + 1) % 5 == 0):
+        if (self.steps - 1 == 0):
+            self.putFood()
+        elif ((self.steps + 1) % 5 == 0):
             self.putFood()
 
     # get the grid
