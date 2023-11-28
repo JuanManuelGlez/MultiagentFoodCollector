@@ -20,7 +20,7 @@ class ExplorerAgent(Agent):
         (x, y) = self.pos
 
         # Move until all food is generated and agent not positioned
-        if not self.isPositioned and self.model.positionZone < 5:
+        if not self.isPositioned and self.model.positionZone < self.model.numAgents:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -28,7 +28,6 @@ class ExplorerAgent(Agent):
             elif self.model.floor[x][y] == -1:
                 self.model.foundDeposit = True
                 self.model.depositCoord = (x, y)
-                print("Deposit found at:", (x, y))
 
             elif self.pos == self.goalPosition:
                 self.isPositioned = True
@@ -42,7 +41,7 @@ class ExplorerAgent(Agent):
                         self.model.grid.move_agent(self, (moveX, moveY))
 
         # Move until all food is generated and if agents are in position explore food
-        elif self.model.positionZone == 5:
+        elif self.model.positionZone == self.model.numAgents:
             if self.model.floor[x][y] == 1:
                 if not self.foodIsAdded(x, y):
                     self.model.foodPositions.append((x, y))
@@ -50,7 +49,6 @@ class ExplorerAgent(Agent):
             elif self.model.floor[x][y] == -1:
                 self.model.foundDeposit = True
                 self.model.depositCoord = (x, y)
-                print("Deposit found at:", (x, y))
             self.moveInPattern()
 
     # Search deposit
@@ -60,7 +58,6 @@ class ExplorerAgent(Agent):
         if self.model.floor[x][y] == -1:
             self.model.foundDeposit = True
             self.model.depositCoord = (x, y)
-            print("Deposit found at: ", x, y)
 
         # check if the agent found food
         elif self.model.floor[x][y] == 1:
@@ -132,7 +129,7 @@ class ExplorerAgent(Agent):
     # Move in snake pattern
     def moveInPattern(self):
         (x, y) = self.pos
-        if len(self.model.foodPositions) < 48:
+        if len(self.model.foodPositions) <= self.model.totalFood:
             if not self.pos == self.endPosition and not self.moveBeginning:
                 # Move right until right hand side
                 if self.moveRight and y < len(self.model.floor) - 1:

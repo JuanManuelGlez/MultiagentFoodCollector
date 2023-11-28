@@ -64,8 +64,8 @@ class foodColectionModel(Model):
         agentNumber = 0
 
         while (agentNumber < self.numAgents):
-            x = self.random.randint(0, self.width)
-            y = self.random.randint(0, self.height)
+            x = self.random.randint(0, self.width -1)
+            y = self.random.randint(0, self.height -1)
             if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
                 a = ExplorerAgent(self.id, self)
                 self.schedule.add(a)
@@ -125,7 +125,7 @@ class foodColectionModel(Model):
         self.steps += 1
         self.stepsToJson += 1
         self.checkToPutFood()
-        if (len(self.foodPositions)) == 47 and not self.changedRoles:
+        if (len(self.foodPositions)) == self.totalFood and not self.changedRoles:
             self.changedRoles = True
             self.changeRoles()
         self.datacollector.collect(self)
@@ -133,7 +133,7 @@ class foodColectionModel(Model):
 
     # Partition in zones the grid and floor
     def partitionZone(self):
-        zone_rows = 4
+        zone_rows = self.height // self.numAgents
         num_zones = len(self.floor) // zone_rows
 
         for zone_id in range(num_zones):
@@ -151,7 +151,7 @@ class foodColectionModel(Model):
     # Change of roles
     def changeRoles(self):
         for agent in self.schedule.agents:
-            if isinstance(agent, ExplorerAgent) and len(self.foodPositions) == 47:
+            if isinstance(agent, ExplorerAgent) and len(self.foodPositions) == self.totalFood:
                 # Remove the existing agent
                 x, y = agent.pos
                 self.grid.remove_agent(agent)
