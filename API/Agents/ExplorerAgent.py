@@ -34,12 +34,24 @@ class ExplorerAgent(Agent):
                     self.isPositioned = True
                     self.model.positionZone += 1
 
-                if not self.isPositioned:
+            if not self.isPositioned:
+                if self.pos == self.goalPosition:
+                    self.isPositioned = True
+                    self.model.positionZone += 1
+                else:
                     result = self.positionAgents()
                     if not result == None:
                         moveX, moveY = result
-                        if self.model.grid.is_cell_empty((moveX, moveY)):
-                            self.model.grid.move_agent(self, (moveX, moveY))
+                        if (self.model.numAgents == 5):
+                            if self.model.grid.is_cell_empty((moveX, moveY)):
+                                self.model.grid.move_agent(self, (moveX, moveY))
+                        else:
+                            if self.model.grid.is_cell_empty((moveX, moveY)):
+                                self.model.grid.move_agent(self, (moveX, moveY))
+                            else:
+                                self.moveRandomly()
+                    else:
+                        self.moveRandomly()
 
             # Move until all food is generated and if agents are in position explore food
             elif self.model.positionZone == self.model.numAgents:
@@ -112,8 +124,12 @@ class ExplorerAgent(Agent):
         for i in range(len(self.model.zonesDict)):
             if self.unique_id == i:
                 self.goalPosition = self.model.zonesDict[i][0][0], self.model.zonesDict[i][0][1]
-                self.endPosition = self.model.zonesDict[i][len(
+                if ( (len(self.model.zonesDict[i]))/ (len(self.model.floor)) % 2 == 0) or (self.model.zonesDict[i][len(
+                    self.model.zonesDict[i]) - 1][0] - self.goalPosition[0]) == 1:
+                    self.endPosition = self.model.zonesDict[i][len(
                     self.model.zonesDict[i]) - 1][0], 0
+                else:
+                    self.endPosition = self.model.zonesDict[i][len(self.model.zonesDict[i]) - 1][0], self.model.zonesDict[i][len(self.model.zonesDict[i]) - 1][1]
                 distances = []
                 for step in neighborCells:
                     newX, newY = step
@@ -153,7 +169,10 @@ class ExplorerAgent(Agent):
                     self.moveDown = True
             else:
                 self.moveBeginning = True
-                self.moveToBeginning()
+                if (len(self.model.zonesDict[self.unique_id])/( (len(self.model.floor))) % 2 == 0):
+                    self.moveToBeginning()
+                else:
+                    self.moveDiagBeginning()
 
     # Helper to get neighborhood cells
     def getRandomNeighborhood(self):
@@ -170,3 +189,28 @@ class ExplorerAgent(Agent):
             self.moveRight = True
             self.moveLeft = False
             self.moveBeginning = False
+            
+    def moveDiagBeginning(self):
+        (x, y) = self.pos
+        (begX, begY) = self.goalPosition
+        if begX != x:
+            self.model.grid.move_agent(self, (x - 1, y))
+        elif begY != y:
+            self.model.grid.move_agent(self, (x, y - 1))
+        else:
+            self.moveDown = False
+            self.moveRight = True
+            self.moveLeft = False
+            self.moveBeginning = False
+    
+    def moveRandomly(self):
+        # Obtain random neighbors to move
+        possibleSteps = self.model.grid.get_neighborhood(
+            self.pos, moore=True, include_center=False)
+
+        emptySteps = [
+            step for step in possibleSteps if self.model.grid.is_cell_empty(step)]
+
+        if emptySteps:
+            new_position = self.random.choice(emptySteps)
+            self.model.grid.move_agent(self, new_position)

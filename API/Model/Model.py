@@ -64,28 +64,17 @@ class foodColectionModel(Model):
 
         agentNumber = 0
 
-        # while (agentNumber < self.numAgents):
-        # x = self.random.randint(0, self.width - 1)
-        # y = self.random.randint(0, self.height - 1)
-        # if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
-        #     a = ExplorerAgent(self.id, self)
-        #     self.schedule.add(a)
-        #     self.grid.place_agent(a, (x, y))
-        #     self.id += 1
-        #     agentNumber += 1
-
-        xstarting = 0
-
-        for i in range(self.numAgents):
-            x = xstarting
-            y = 0
+        while (agentNumber < self.numAgents):
+            x = self.random.randint(0, self.width - 1)
+            y = self.random.randint(0, self.height - 1)
             if (self.grid.is_cell_empty((x, y)) and self.floor[x][y] != -1):
                 a = ExplorerAgent(self.id, self)
                 self.schedule.add(a)
                 self.grid.place_agent(a, (x, y))
                 self.id += 1
                 agentNumber += 1
-            xstarting += 2
+
+  
 
         # Put deposit
         self.initDeposit()
@@ -150,19 +139,18 @@ class foodColectionModel(Model):
     # Partition in zones the grid and floor
     def partitionZone(self):
         zone_rows = self.height // self.numAgents
-        num_zones = len(self.floor) // zone_rows
+        remaining_zones = self.height % self.numAgents
 
-        for zone_id in range(num_zones):
-            start_row = zone_id * zone_rows
-            end_row = min((zone_id + 1) * zone_rows, len(self.floor))
+        index = 0
+        for zone_id in range(self.numAgents):
+            start_row = index
+            zone_rows_count = zone_rows + 1 if zone_id < remaining_zones else zone_rows
+            end_row = min(index + zone_rows_count, self.height)
 
-            zone_data = []
-
-            for agent, (row, col) in self.grid.coord_iter():
-                if start_row <= row < end_row:
-                    zone_data.append((row, col))
-
+            zone_data = [(row, col) for agent, (row, col) in self.grid.coord_iter() if start_row <= row < end_row]
             self.zonesDict[zone_id] = zone_data
+            index = end_row
+
 
     # Change of roles
     def changeRoles(self):
